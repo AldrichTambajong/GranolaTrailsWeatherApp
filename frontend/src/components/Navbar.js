@@ -3,12 +3,15 @@ import {Link} from 'react-router-dom'
 
 function Navbar() {
     return (
-        <nav>
-            <div>
-                <Link to="/page1">Page1</Link>
-                <Link to ="/page2">Page2</Link>
+        <nav className="navbar">
+            <div className="container-fluid">
+                <ul className= "header-nav">
+                    <li><Link className ="link" to="/home">Home</Link></li>
+                    <li><Link className="link"to ="">Page2</Link></li>
+                </ul>
             </div>
         </nav>
+        
     )
 }
 

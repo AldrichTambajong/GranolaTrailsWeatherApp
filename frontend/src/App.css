@@ -164,3 +164,31 @@
 .accErrMess{
   text-align: center;
 }
+
+.header-nav{
+  list-style-type: none;
+  margin: 0;
+  padding: 0%;
+  overflow: hidden;
+}
+
+.header-nav li{
+  float: left;
+  font-size: 20px;
+  border-right: 1px solid #bbb;
+}
+
+.link{
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  background-color: #04AA6D;
+}
+
+.navbar{
+  background-color: black;
+  height: auto;
+  padding: 0%;
+}

@@ -32,7 +32,7 @@ function Login(props) {
                     // (take props.setName(sessionStorage.getItem("name")) out and login for example)
                     props.setName(sessionStorage.getItem("name"))
                     props.setEmail(sessionStorage.getItem('email'))
-                    props.setLogin(sessionStorage.getItem('loggedIn'))
+                    props.setLoggedIn(sessionStorage.getItem('loggedIn'))
                 }
                 else {
                     setError(true)

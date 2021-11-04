@@ -18,7 +18,7 @@ function App() {
           <Routes>
             {/* "element" prop needs to be declared in route tags that 
             need multiple components */}
-            <Route path="" element={<Navigate to="/home"></Navigate>}/>
+            <Route path="" element={<Navigate to="/login"></Navigate>}/>
 
             <Route path="/login" element={
               loggedIn === "true"?

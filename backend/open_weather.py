@@ -3,6 +3,7 @@
 """
 
 import os
+from collections import namedtuple
 from datetime import datetime
 import requests
 
@@ -16,6 +17,11 @@ from werkzeug.exceptions import InternalServerError, NotFound
 
 OPEN_WEATHER_KEY = os.getenv("OPEN_WEATHER_KEY")
 BASE_URL = "https://api.openweathermap.org/data/2.5"
+
+Weather = namedtuple(
+    "Weather",
+    ["weather", "temperature", "precipitation", "clouds", "month", "day", "hour"],
+)
 
 
 def get_forecast_by_city(city: str, state: str):
@@ -31,44 +37,36 @@ def get_forecast_by_city(city: str, state: str):
 
     Returns
     -------
-    list
-        cloudiness: int
-            percentage of cloud cover
-        feel: float
-            feels like temperature, fahrenheit
-        humidity: int
-            humidity percentage
+    list of the Weather namedtuple
+        weather: list[str]
+            https://openweathermap.org/weather-conditions
+        temperature: float
+            fahrenheit
         precipitation: int
             probability of precipitation
-        temp: float
-            temperature, fahrenheit
-        time:
-            dt: int
-                absolute time of entry
-            month: int
-            day: int
-            hour: int
-        visibility: int
-            average visibility in meters
-        weather: str
-            https://openweathermap.org/weather-conditions
-        wind: float
-            wind speed, mph
+            from 0 to 100
+        clouds: int
+            percentage of cloud cover
+            from 0 to 100
+        month: int
+        day: int
+        hour: int
     """
-    try:
-        response = requests.get(
-            f"{BASE_URL}/forecast",
-            params={
-                "appid": OPEN_WEATHER_KEY,
-                "q": f"{city},{state},us",
-                "units": "imperial",
-            },
-        )
-        data = response.json()
-        weather = list(map(format_weather_entry, data["list"]))
-        return weather
-    except (InternalServerError, NotFound, KeyError, TypeError):
-        return []
+    # try:
+    response = requests.get(
+        f"{BASE_URL}/forecast",
+        params={
+            "appid": OPEN_WEATHER_KEY,
+            "q": f"{city},{state},us",
+            "units": "imperial",
+        },
+    )
+    data = response.json()
+    weather = list(map(format_weather_entry, data["list"]))
+    return weather
+    # except (InternalServerError, NotFound, KeyError, TypeError):
+    #     print("failed response")
+    #     return []
 
 
 def get_forecast_by_coordinates(latitude: float, longitude: float):
@@ -82,29 +80,20 @@ def get_forecast_by_coordinates(latitude: float, longitude: float):
 
     Returns
     -------
-    list
-        cloudiness: int
-            percentage of cloud cover
-        feel: float
-            feels like temperature, fahrenheit
-        humidity: int
-            humidity percentage
+    list of the Weather namedtuple
+        weather: list[str]
+            https://openweathermap.org/weather-conditions
+        temperature: float
+            fahrenheit
         precipitation: int
             probability of precipitation
-        temp: float
-            temperature, fahrenheit
-        time:
-            dt: int
-                absolute time of entry
-            month: int
-            day: int
-            hour: int
-        visibility: int
-            average visibility in meters
-        weather: str
-            https://openweathermap.org/weather-conditions
-        wind: float
-            wind speed, mph
+            from 0 to 100
+        clouds: int
+            percentage of cloud cover
+            from 0 to 100
+        month: int
+        day: int
+        hour: int
     """
     try:
         response = requests.get(
@@ -120,6 +109,7 @@ def get_forecast_by_coordinates(latitude: float, longitude: float):
         weather = list(map(format_weather_entry, data["list"]))
         return weather
     except (InternalServerError, NotFound, KeyError, TypeError):
+        print("failed response")
         return []
 
 
@@ -128,25 +118,17 @@ def format_weather_entry(entry):
     formats the weather entry to be more useful
     """
 
-    w_time = datetime.fromtimestamp(entry["dt"])
-    entry["time"] = {}
-    entry["time"]["dt"] = entry["dt"]
-    entry["time"]["month"] = w_time.month
-    entry["time"]["day"] = w_time.day
-    entry["time"]["hour"] = w_time.hour
-    entry["cloudiness"] = entry["clouds"]["all"]
-    entry["wind"] = entry["wind"]["speed"]
-    for i in range(len(entry["weather"])):
-        entry["weather"][i] = entry["weather"][i]["main"]
-    entry["weather"] = ",".join(entry["weather"])
-    entry["feel"] = entry["main"]["feels_like"]
-    entry["humidity"] = entry["main"]["humidity"]
-    entry["temp"] = entry["main"]["temp"]
-    entry["precipitation"] = entry["pop"]
-    del entry["main"]
-    del entry["pop"]
-    del entry["clouds"]
-    del entry["dt"]
-    del entry["dt_txt"]
-    del entry["sys"]
-    return entry
+    _weather = entry["weather"][0]["main"]
+    _temperature = entry["main"]["feels_like"]
+    _precipitation = entry["pop"]
+    _clouds = entry["clouds"]["all"]
+    _time = datetime.fromtimestamp(entry["dt"])
+    _month = _time.month
+    _day = _time.day
+    _hour = _time.hour
+
+    weather_entry = Weather(
+        _weather, _temperature, _precipitation, _clouds, _month, _day, _hour
+    )
+
+    return weather_entry

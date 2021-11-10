@@ -5,8 +5,10 @@
 import os
 import json
 import flask
+from requests.api import get
 
 app = flask.Flask(__name__)
+
 
 def main():
     """

@@ -1,13 +1,16 @@
-import flask
+"""
+    creates the app
+"""
+
 import os
-from flask import json
+from flask import json, Flask, request
 from flask.json import jsonify
 from dotenv import load_dotenv, find_dotenv, main
 from flask_login import current_user, LoginManager, login_user, logout_user
 from sqlalchemy import func
 from passlib.hash import sha256_crypt
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
 
 load_dotenv(find_dotenv())
 
@@ -17,7 +20,7 @@ login_manager = LoginManager()
 @app.route("/login", methods=["POST"])
 def login():
 
-    if flask.request.method == "POST":
+    if request.method == "POST":
         #     data = flask.request.get_json()
         #     user = User.query.filter_by(email=data.get("email")).first()
         jsonData = {

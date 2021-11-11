@@ -5,10 +5,10 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import DailyWeather from './components/DailyWeather';
-import ActivityList from './components/ActivityList';
-import ActivityMonitor from './components/ActivityMonitor';
-// import InitialSetup from './components/InitialSetup'
+// import DailyWeather from './components/DailyWeather';
+// import ActivityList from './components/ActivityList';
+// import ActivityMonitor from './components/ActivityMonitor';
+import InitialSetup from './components/InitialSetup'
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(sessionStorage.getItem('loggedIn'))
@@ -40,9 +40,10 @@ function App() {
           <Route path="/home" element={
             <div class="container">
               <Navbar name={name} email={email}></Navbar>
-              {/* <InitialSetup /> */}
 
-              <h1>Granola Trails</h1>
+              <InitialSetup />
+
+              {/* <h1>Granola Trails</h1>
               <div class="row">
                 <div class="col">
                   <DailyWeather />
@@ -53,7 +54,7 @@ function App() {
               </div>
               <div class="row">
                 <ActivityList />
-              </div>
+              </div> */}
             </div>
           }></Route>
 

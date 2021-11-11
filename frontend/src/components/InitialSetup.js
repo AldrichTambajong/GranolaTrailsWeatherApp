@@ -1,99 +1,143 @@
 import React from 'react'
+import { useState } from 'react'
+import { Form } from "react-bootstrap";
 
-function ActivityList() {
+function InitialSetup(props) {
+    const [location, setLocation] = useState('')
+    const [hiking, setHiking] = useState(false)
+    const [offroading, setOffroading] = useState(false)
+    const [fishing, setFishing] = useState(false)
+    const [bouldering, setBouldering] = useState(false)
+    const [camping, setCamping] = useState(false)
+
+    const handleSubmit = (e) => {
+
+        e.preventDefault();
+
+        console.log("hiking = " + hiking)
+        console.log("fishing = " + fishing)
+
+        console.log("my location is" + location)
+
+    }
+
     return (
         <div >
             <h1> Account Creation </h1>
             <h2> Where are you from? </h2>
 
-            <select class="form-select" aria-label="Default select example">
-                <option selected>Choose your State (Abbreviated)</option>
-                <option value="1">AL</option>
-                <option value="2">AK</option>
-                <option value="3">AZ</option>
-                <option value="4">AR</option>
-                <option value="5">CA</option>
-                <option value="6">CO</option>
-                <option value="7">CT</option>
-                <option value="8">DE</option>
-                <option value="9">FL</option>
-                <option value="10">GA</option>
-                <option value="11">HI</option>
-                <option value="12">ID</option>
-                <option value="13">IL</option>
-                <option value="14">IN</option>
-                <option value="15">IA</option>
-                <option value="16">KS</option>
-                <option value="17">KY</option>
-                <option value="18">LA</option>
-                <option value="19">ME</option>
-                <option value="20">MD</option>
-                <option value="21">MN</option>
-                <option value="22">MS</option>
-                <option value="23">MO</option>
-                <option value="24">MT</option>
-                <option value="25">NE</option>
-                <option value="26">NV</option>
-                <option value="27">NH</option>
-                <option value="28">NJ</option>
-                <option value="29">NM</option>
-                <option value="30">NY</option>
-                <option value="31">NC</option>
-                <option value="32">ND</option>
-                <option value="33">OH</option>
-                <option value="34">OK</option>
-                <option value="35">OR</option>
-                <option value="36">PA</option>
-                <option value="37">RI</option>
-                <option value="38">SC</option>
-                <option value="39">SD</option>
-                <option value="40">TN</option>
-                <option value="41">TX</option>
-                <option value="42">UT</option>
-                <option value="43">VT</option>
-                <option value="44">VA</option>
-                <option value="45">WA</option>
-                <option value="46">WV</option>
-                <option value="47">WI</option>
-                <option value="48">WY</option>
-            </select>
+            <Form.Group class="form-select" aria-label="Default select example">
+                <Form.Control
+                    as="select"
+                    value={location}
+                    onChange={e => {
+                        setLocation(e.target.value);
+                    }}
+                >
+                    <option selected>Choose your State (Abbreviated)</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticuit</option>
+                    <option value="DE">Delaware</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washigton</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconinsin</option>
+                    <option value="WY">Wyoming</option>
+                </Form.Control>
+            </Form.Group>
 
             <h2> What are your favorite activities? </h2>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="checkHiking"></input>
-                <label class="form-check-label" for="checkHiking">
-                    Hiking
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="checkOffroading"></input>
-                <label class="form-check-label" for="checkOffroading">
-                    Offroading
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="checkFishing"></input>
-                <label class="form-check-label" for="checkFishing">
-                    Fishing
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="checkBouldering"></input>
-                <label class="form-check-label" for="checkBouldering">
-                    Bouldering
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="checkCamping"></input>
-                <label class="form-check-label" for="checkCamping">
-                    Camping
-                </label>
-            </div>
+            <form onSubmit={handleSubmit}>
+                <Form.Group class="form-check">
+                    <input class="form-check-input" type="checkbox" value={hiking} id="checkHiking" onChange={(e) => {
+                        setHiking(true);
+                        // console.log("hiking = " + hiking)
+                    }}></input>
+                    <label class="form-check-label" for="checkHiking">
+                        Hiking
+                    </label>
+                </Form.Group>
+                <Form.Group class="form-check">
+                    <input class="form-check-input" type="checkbox" value={offroading} id="checkOffroading" onChange={(e) => {
+                        setOffroading(true);
+                        // console.log("offroading = " + offroading)
+                    }}></input>
+                    <label class="form-check-label" for="checkOffroading">
+                        Offroading
+                    </label>
+                </Form.Group>
+                <Form.Group class="form-check">
+                    <input class="form-check-input" type="checkbox" value={fishing} id="checkFishing" onChange={(e) => {
+                        setFishing(true);
+                        // console.log("fishing = " + fishing)
+                    }}></input>
+                    <label class="form-check-label" for="checkFishing">
+                        Fishing
+                    </label>
+                </Form.Group>
+                <Form.Group class="form-check">
+                    <input class="form-check-input" type="checkbox" value={bouldering} id="checkBouldering" onChange={(e) => {
+                        setBouldering(true);
+                        // console.log("bouldering = " + bouldering)
+                    }}></input>
+                    <label class="form-check-label" for="checkBouldering">
+                        Bouldering
+                    </label>
+                </Form.Group>
+                <Form.Group class="form-check">
+                    <input class="form-check-input" type="checkbox" value={camping} id="checkCamping" onChange={(e) => {
+                        setCamping(true);
+                    }}></input>
+                    <label class="form-check-label" for="checkCamping">
+                        Camping
+                    </label>
+                </Form.Group>
 
-            <input class="btn btn-primary" type="submit" value="Submit"></input>
+                <input class="btn btn-primary" type="submit" value="Submit"></input>
+            </form>
 
-        </div>
+        </div >
     )
 }
 
-export default ActivityList
+export default InitialSetup

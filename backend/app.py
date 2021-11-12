@@ -10,11 +10,22 @@ from flask_login import current_user, LoginManager, login_user, logout_user
 from sqlalchemy import func
 from passlib.hash import sha256_crypt
 
+from national_parks import get_parks_by_activities, find_activity
+
 app = Flask(__name__)
 
 load_dotenv(find_dotenv())
 
 login_manager = LoginManager()
+
+
+@app.route("/test")
+def testing():
+    fishing = find_activity("Fishing")
+    fishing_id = fishing[0]["id"]
+    fishing_parks = get_parks_by_activities(activity_ids=[fishing_id], limit=1)
+    weather = json.dumps(fishing_parks[0])
+    return weather
 
 
 @app.route("/login", methods=["POST"])

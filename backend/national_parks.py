@@ -46,6 +46,8 @@ def _park_from_data(data):
             0 to 100, percentage
         temperature: float
         weather: str
+            short description of weather
+            https://openweathermap.org/weather-conditions
     """
 
     _description = data["description"]
@@ -116,6 +118,8 @@ def get_parks_by_activities(
                 0 to 100, percentage
             temperature: float
             weather: str
+                short description of weather
+                https://openweathermap.org/weather-conditions
     """
     if activity_ids == None:
         activity_ids = []

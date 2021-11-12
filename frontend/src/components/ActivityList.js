@@ -10,7 +10,7 @@ function ActivityList() {
             "park_precipitation": 10,
             "park_cloud_coverage": 20,
             "park_condition": "cloudy",
-            "Park_URL": "google.com",
+            "Park_URL": "https://www.atlantatrails.com/hiking-trails/wooded-serenity-the-appalachian-trail-at-blood-mountain/",
             "park_image": "https://www.exploregeorgia.org/sites/default/files/styles/slideshow_large/public/2019-02/tallulah-gorge-thegreatoutdoorsphoto-instagram.jpg?itok=mq1BQs3M",
             "Park_Description": "Big rocks and big waterfall, come here!"
         },
@@ -80,7 +80,7 @@ function ActivityList() {
                                     {item["Park_Description"]}
                                 </Card.Text>
                                 <Button variant="primary" onClick={() => {
-                                    window.location.href = 'https://example.com/1234';
+                                    window.location.href = item["Park_URL"];
                                     return null;
                                 }}>Go To Site</Button>
                             </Card.Body>

@@ -5,13 +5,13 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import DailyWeather from './components/DailyWeather';
 import ActivityList from './components/ActivityList';
-import ActivityMonitor from './components/ActivityMonitor';
-// import InitialSetup from './components/InitialSetup'
+import InitialSetup from './components/InitialSetup'
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(sessionStorage.getItem('loggedIn'))
+  // const [hasData, setHasData] = useState(sessionStorage.getItem('hasData'))
+  const [hasData, setHasData] = useState(sessionStorage.getItem('hasData'))
   const [signedUp, setSignedUp] = useState()
   const [name, setName] = useState(sessionStorage.getItem("name"))
   const [email, setEmail] = useState(sessionStorage.getItem("email"))
@@ -26,7 +26,10 @@ function App() {
 
           <Route path="/login" element={
             loggedIn === "true" ?
-              <Navigate to="/home"></Navigate>
+              hasData === "true" ?
+                <Navigate to="/home"></Navigate>
+                :
+                <Navigate to="/initialSetup"></Navigate>
               :
               <div>
                 <Login setName={setName} setLoggedIn={setLoggedIn} setEmail={setEmail}></Login>
@@ -40,15 +43,19 @@ function App() {
           <Route path="/home" element={
             <div class="container">
               <Navbar name={name} email={email}></Navbar>
-
-              {/* <InitialSetup /> */}
-
               <h1>Granola Trails</h1>
               <div class="row">
               </div>
               <div class="row">
                 <ActivityList />
               </div>
+            </div>
+          }></Route>
+
+          <Route path="/initialSetup" element={
+            <div class="container">
+              <Navbar name={name} email={email}></Navbar>
+              <InitialSetup />
             </div>
           }></Route>
 

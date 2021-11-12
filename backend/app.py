@@ -19,15 +19,6 @@ load_dotenv(find_dotenv())
 login_manager = LoginManager()
 
 
-@app.route("/test")
-def testing():
-    fishing = find_activity("Fishing")
-    fishing_id = fishing[0]["id"]
-    fishing_parks = get_parks_by_activities(activity_ids=[fishing_id], limit=1)
-    weather = json.dumps(fishing_parks[0])
-    return weather
-
-
 @app.route("/login", methods=["POST"])
 def login():
 

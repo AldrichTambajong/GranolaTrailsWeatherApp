@@ -5,12 +5,10 @@
 import os
 from flask import json, Flask, request
 from flask.json import jsonify
-from dotenv import load_dotenv, find_dotenv, main
+from dotenv import load_dotenv, find_dotenv
 from flask_login import current_user, LoginManager, login_user, logout_user
 from sqlalchemy import func
 from passlib.hash import sha256_crypt
-
-from national_parks import get_parks_by_activities, find_activity
 
 app = Flask(__name__)
 
@@ -78,6 +76,9 @@ def signUp():
 
 
 def main():
+    """
+    runs the app
+    """
     app.run(debug=True, port=int(os.environ.get("PORT", 5000)))
 
 

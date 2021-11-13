@@ -76,7 +76,6 @@ def _park_from_data(data):
     return park
 
 
-# pylint: disable=too-many-arguments
 def get_parks_and_weather(
     activity_ids: list = None,
     state: str = "",
@@ -149,9 +148,6 @@ def get_parks_and_weather(
     except (InternalServerError, NotFound, TypeError) as error:
         print(error)
         return []
-
-
-# pylint: enable=too-many-arguments
 
 
 # pylint: disable=too-many-arguments

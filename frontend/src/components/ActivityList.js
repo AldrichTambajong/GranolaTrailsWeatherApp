@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Card, Button, Container, Row, Col } from "react-bootstrap"
-import { Link } from 'react-router-dom'
 
 function ActivityList() {
     const listOfActivities =

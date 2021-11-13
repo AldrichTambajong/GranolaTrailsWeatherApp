@@ -22,10 +22,14 @@ function Login(props) {
                 // Based on response, checks to see whether the user provided valid user id or not
                 console.log(data)
                 if (data.login === "valid") {
+                    console.log("this is touched")
                     // Need both setItem and state variable method (i.e setName) declared
                     // setItem used to make the storage variable
-                    sessionStorage.setItem("name", data.name)
                     sessionStorage.setItem("email", data.email)
+                    localStorage.setItem("email", data.email)
+
+
+                    console.log("sess " + sessionStorage.getItem("email"))
                     sessionStorage.setItem('loggedIn', true)
                     // State variables WILL NOT CHANGE unless changed using their setChange methods.
                     // if props.setChange() isn't used, there will be an empty value for the props variable
@@ -33,6 +37,9 @@ function Login(props) {
                     props.setName(sessionStorage.getItem("name"))
                     props.setEmail(sessionStorage.getItem('email'))
                     props.setLoggedIn(sessionStorage.getItem('loggedIn'))
+                    // console.log("logged in = " + sessionStorage.getItem('loggedIn'))
+
+                    // console.log("email = " + email)
                 }
                 else {
                     setError(true)
@@ -49,17 +56,17 @@ function Login(props) {
                     <h2>Login</h2>
                     <div className="inputDiv">
                         <label>Email:</label>
-                        <br/>
+                        <br />
                         <input type="email" name="email" placeholder="email" className="inputCenter"
                             value={email} onChange={e => setEmail(e.target.value)} />
                     </div>
                     <div className="inputDiv">
                         <label>Password:</label>
-                        <br/>
+                        <br />
                         <input type="password" name="password" placeholder="password" className="inputCenter"
                             value={password} onChange={e => setPassword(e.target.value)} />
                     </div>
-                    <input type="submit" value="Login"/>
+                    <input type="submit" value="Login" />
                 </form>
             </div>
             <div className="suggest">

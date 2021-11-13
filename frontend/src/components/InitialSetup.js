@@ -9,16 +9,37 @@ function InitialSetup(props) {
     const [fishing, setFishing] = useState(false)
     const [bouldering, setBouldering] = useState(false)
     const [camping, setCamping] = useState(false)
+    const [error, setError] = useState(false)
 
     const handleSubmit = (e) => {
 
-        e.preventDefault();
+        let accountAttributes = {
+            'user_state': location,
+            'username': localStorage.getItem('email'),
+            'hiking': hiking,
+            'fishing': fishing,
+            'offroad': offroading,
+            'camping': camping,
+            'bouldering': bouldering
+        }
 
-        console.log("hiking = " + hiking)
-        console.log("fishing = " + fishing)
-
-        console.log("my location is" + location)
-
+        fetch('/setAttributes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(accountAttributes)
+        }).then(response => response.json())
+            .then((data) => {
+                // Based on response, checks to see whether the user provided valid user id or not
+                console.log(data)
+                if (data.login === "valid") {
+                    props.setHasData(sessionStorage.getItem('hasData'), true)
+                } else {
+                    setError(true)
+                }
+            })
+        e.preventDefault()
     }
 
     return (
@@ -135,6 +156,14 @@ function InitialSetup(props) {
 
                 <input class="btn btn-primary" type="submit" value="Submit"></input>
             </form>
+
+            <div className="suggest">
+                {error === true ?
+                    <p style={{ color: "red" }}>Something went wrong... really really wrong...</p>
+                    :
+                    <p></p>
+                }
+            </div>
 
         </div >
     )

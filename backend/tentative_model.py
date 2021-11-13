@@ -1,6 +1,7 @@
-from app import app
+# from app import app
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
+
 """
     Table 1: Users
 Columns:
@@ -23,28 +24,23 @@ Table 3: Favorites_List
 - activity_location: String 
 
 """
-db = SQLAlchemy(app)
-class User(UserMixin, db.Model):
+db = SQLAlchemy()
+
+
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80))
     email = db.Column(db.String(120))
     password = db.Column(db.String(80))
 
     def __repr__(self):
-        return f"<User {self.username}>"
+        return f"<Email {self.email}>"
 
-    def get_username(self):
-        return self.username
-    
     def get_email(self):
         return self.email
-    
-  #  def get_password(self):
-    #    return self.password
 
 
 class User_Attributes(db.Model):
-    #id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     user_state = db.Column(db.String(80), nullable=False)
     username = db.Column(db.String(80), nullable=False)
     hiking = db.Column(db.Boolean, unique=False, nullable=False, default=False)
@@ -52,10 +48,15 @@ class User_Attributes(db.Model):
     offroad = db.Column(db.Boolean, unique=False, nullable=False, default=False)
     camping = db.Column(db.Boolean, unique=False, nullable=False, default=False)
     bouldering = db.Column(db.Boolean, unique=False, nullable=False, default=False)
+
     def __repr__(self):
-       return f"<State: {self.user_state}>"
+        return f"<State: {self.user_state}>"
+
 
 class Favorites_list(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), nullable=False)
     activity_location = db.Column(db.String(80), nullable=False)
-db.create_all()
+
+
+# db.create_all()

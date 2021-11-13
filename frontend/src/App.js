@@ -8,6 +8,7 @@ import Signup from './components/Signup';
 import ActivityList from './components/ActivityList';
 import InitialSetup from './components/InitialSetup'
 
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(sessionStorage.getItem('loggedIn'))
   // const [hasData, setHasData] = useState(sessionStorage.getItem('hasData'))
@@ -71,6 +72,12 @@ function App() {
                 </div>
               </div>
           }></Route>
+
+          <Route path="/logout" element={
+            <Navigate to="/login"></Navigate>
+          }>
+            {sessionStorage.clear()}
+          </Route>
 
         </Routes>
       </Router>

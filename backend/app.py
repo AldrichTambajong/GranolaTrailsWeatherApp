@@ -57,6 +57,12 @@ def signUp():
         data = request.get_json()
         email = data.get("email")
         password = data.get("password")
+        user_state = data.get("user_state")
+        hiking = data.get("hiking")
+        fishing = data.get("fishing")
+        offroad = data.get("offroad")
+        camping = data.get("camping")
+        bouldering = data.get("bouldering")
 
         if User.query.filter_by(email=email).first():
             errorObj = {"message": "Email already exists!", "status": 300}
@@ -64,39 +70,20 @@ def signUp():
 
         password = sha256_crypt.encrypt(password)
 
-        new_account = User(email=email, password=password)
-        db.session.add(new_account)
-        db.session.commit()
-        successObj = {"message": "New user registered", "status": 200}
-        return jsonify(successObj)
-
-
-@app.route("/setAttributes", methods=["POST"])
-def setAttributes():
-    if request.method == "POST":
-        data = request.get_json()
-        user_state = data.get("user_state")
-        username = data.get("email")
-        hiking = data.get("hiking")
-        fishing = data.get("fishing")
-        offroad = data.get("offroad")
-        camping = data.get("camping")
-        bouldering = data.get("bouldering")
-
-        print(username)
-
-        set_attributes = User_Attributes(
+        new_account = User(
+            email=email,
+            password=password,
             user_state=user_state,
-            username=username,
             hiking=hiking,
             fishing=fishing,
             offroad=offroad,
             camping=camping,
             bouldering=bouldering,
         )
-        db.session.add(set_attributes)
+        # print(new_account)
+        db.session.add(new_account)
         db.session.commit()
-        successObj = {"message": "Account Attributes added", "status": 200}
+        successObj = {"message": "New user registered", "status": 200}
         return jsonify(successObj)
 
 

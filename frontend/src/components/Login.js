@@ -22,14 +22,11 @@ function Login(props) {
                 // Based on response, checks to see whether the user provided valid user id or not
                 console.log(data)
                 if (data.login === "valid") {
-                    console.log("this is touched")
                     // Need both setItem and state variable method (i.e setName) declared
                     // setItem used to make the storage variable
                     sessionStorage.setItem("email", data.email)
                     localStorage.setItem("email", data.email)
 
-
-                    console.log("sess " + sessionStorage.getItem("email"))
                     sessionStorage.setItem('loggedIn', true)
                     // State variables WILL NOT CHANGE unless changed using their setChange methods.
                     // if props.setChange() isn't used, there will be an empty value for the props variable

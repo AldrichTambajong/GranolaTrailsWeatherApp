@@ -6,16 +6,43 @@ import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import ActivityList from './components/ActivityList';
-import InitialSetup from './components/InitialSetup'
 
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(sessionStorage.getItem('loggedIn'))
-  // const [hasData, setHasData] = useState(sessionStorage.getItem('hasData'))
-  const [hasData, setHasData] = useState(sessionStorage.getItem('hasData'))
+  const [hasData, setHasData] = useState(localStorage.getItem('hasData'))
   const [signedUp, setSignedUp] = useState()
   const [name, setName] = useState(sessionStorage.getItem("name"))
   const [email, setEmail] = useState(sessionStorage.getItem("email"))
+
+  // localStorage.getItem('hasData')
+
+  if (loggedIn === "true") {
+    let checkAttributes = { 'email': email }
+    fetch('/hasAttributes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(checkAttributes)
+    }).then(response => response.json())
+      .then((data) => {
+        console.log(data)
+        if (data.exists === "true") {
+          // console.log("true in this function is touched")
+          localStorage.setItem('hasData', true)
+          setHasData(localStorage.getItem('hasData'))
+          console.log("hasData" + hasData)
+        } else {
+          // console.log("false in this function is touched")
+
+          localStorage.setItem('hasData', false)
+          setHasData(localStorage.getItem('hasData'))
+          console.log("hasData" + hasData)
+
+        }
+      })
+  }
 
   return (
     <div className="App">
@@ -26,11 +53,8 @@ function App() {
           <Route path="" element={<Navigate to="/login"></Navigate>} />
 
           <Route path="/login" element={
-            loggedIn === "true" ?
-              hasData === "true" ?
-                <Navigate to="/home"></Navigate>
-                :
-                <Navigate to="/initialSetup"></Navigate>
+            loggedIn === 'true' ?
+              <Navigate to="/home"></Navigate>
               :
               <div>
                 <Login setName={setName} setLoggedIn={setLoggedIn} setEmail={setEmail}></Login>
@@ -42,6 +66,7 @@ function App() {
           }></Route>
 
           <Route path="/home" element={
+
             <div class="container">
               <Navbar name={name} email={email}></Navbar>
               <h1>Granola Trails</h1>
@@ -51,14 +76,9 @@ function App() {
                 <ActivityList />
               </div>
             </div>
+
           }></Route>
 
-          <Route path="/initialSetup" element={
-            <div class="container">
-              <Navbar name={name} email={email}></Navbar>
-              <InitialSetup />
-            </div>
-          }></Route>
 
           <Route path="/signUp" element={
             signedUp === true ?
@@ -77,6 +97,7 @@ function App() {
             <Navigate to="/login"></Navigate>
           }>
             {sessionStorage.clear()}
+            {localStorage.clear()}
           </Route>
 
         </Routes>

@@ -18,10 +18,7 @@ from werkzeug.exceptions import InternalServerError, NotFound
 OPEN_WEATHER_KEY = os.getenv("OPEN_WEATHER_KEY")
 BASE_URL = "https://api.openweathermap.org/data/2.5"
 
-Weather = namedtuple(
-    "Weather",
-    ["weather", "temperature", "precipitation", "clouds", "month", "day", "hour"],
-)
+EXCLUDED = ["current", "minutely", "hourly", "alerts"]
 
 
 def get_forecast_by_city(city: str, state: str):
@@ -52,21 +49,21 @@ def get_forecast_by_city(city: str, state: str):
         day: int
         hour: int
     """
-    # try:
-    response = requests.get(
-        f"{BASE_URL}/forecast",
-        params={
-            "appid": OPEN_WEATHER_KEY,
-            "q": f"{city},{state},us",
-            "units": "imperial",
-        },
-    )
-    data = response.json()
-    weather = list(map(format_weather_entry, data["list"]))
-    return weather
-    # except (InternalServerError, NotFound, KeyError, TypeError):
-    #     print("failed response")
-    #     return []
+    try:
+        response = requests.get(
+            f"{BASE_URL}/forecast",
+            params={
+                "appid": OPEN_WEATHER_KEY,
+                "q": f"{city},{state},us",
+                "units": "imperial",
+            },
+        )
+        data = response.json()
+        weather = list(map(_format_weather_entry, data["list"]))
+        return weather
+    except (InternalServerError, NotFound, KeyError, TypeError):
+        print("failed response")
+        return []
 
 
 def get_forecast_by_coordinates(latitude: float, longitude: float):
@@ -97,38 +94,38 @@ def get_forecast_by_coordinates(latitude: float, longitude: float):
     """
     try:
         response = requests.get(
-            f"{BASE_URL}/forecast",
+            f"{BASE_URL}/onecall",
             params={
                 "appid": OPEN_WEATHER_KEY,
                 "lat": latitude,
                 "lon": longitude,
                 "units": "imperial",
+                "exclude": ",".join(EXCLUDED),
             },
         )
         data = response.json()
-        weather = list(map(format_weather_entry, data["list"]))
+        weather = _format_weather_entry(data["daily"][0])
         return weather
     except (InternalServerError, NotFound, KeyError, TypeError):
         print("failed response")
         return []
 
 
-def format_weather_entry(entry):
+def _format_weather_entry(data):
     """
     formats the weather entry to be more useful
     """
 
-    _weather = entry["weather"][0]["main"]
-    _temperature = entry["main"]["feels_like"]
-    _precipitation = entry["pop"]
-    _clouds = entry["clouds"]["all"]
-    _time = datetime.fromtimestamp(entry["dt"])
-    _month = _time.month
-    _day = _time.day
-    _hour = _time.hour
+    _weather = data["weather"][0]["main"]
+    _temperature = data["temp"]["day"]
+    _precipitation = data["pop"]
+    _clouds = data["clouds"]
 
-    weather_entry = Weather(
-        _weather, _temperature, _precipitation, _clouds, _month, _day, _hour
-    )
+    _forecast = {}
 
-    return weather_entry
+    _forecast["weather"] = _weather
+    _forecast["temperature"] = _temperature
+    _forecast["precipitation"] = _precipitation
+    _forecast["clouds"] = _clouds
+
+    return _forecast

@@ -5,9 +5,13 @@
 # import base64
 # import random
 import os
+import random
+from collections import namedtuple
 import requests
 
 from werkzeug.exceptions import InternalServerError, NotFound
+
+from open_weather import get_forecast_by_coordinates
 
 # pylint: disable=no-member
 # pylint: disable=wrong-import-position
@@ -22,50 +26,50 @@ MAX_LIMIT = 1000000
 __ALL_ACTIVITIES = None
 
 
-def __park_from_data(data):
+def _park_from_data(data):
     """
     takes in the info for a park from /parks
     returns a clean object
 
     Park
     ----
-    activities: list
-        id: str
-        name: str
     description: str
-    directionsInfo: str
-    directionsURL: str
     id: str
-    images: list
-        credit: str
-        altText: str
-        title: str
-        id: int
-        caption: str
-        url: str
-    latitude: float
-    longitude: float
+    img: str
     name: str
     parkCode: str
-    states: list[str]
-        list of 2-character state codes
     url: str
-
+    weather:
+        clouds: int
+            0 to 100, percentage
+        precipitation: int
+            0 to 100, percentage
+        temperature: float
+        weather: str
+            short description of weather
+            https://openweathermap.org/weather-conditions
     """
+
+    _description = data["description"]
+    _id = data["id"]
+    _img = ""
+    if data["images"]:
+        _img = data["images"][0]["url"]
+    _name = data["fullName"]
+    _url = data["url"]
+    _latLong = data["latLong"].split(",")
+    _latitude = _latLong[0].split(":")[1]
+    _longitude = _latLong[1].split(":")[1]
+    _weather = get_forecast_by_coordinates(_latitude, _longitude)
+
     park = {}
-    park["activities"] = data["activities"]
-    park["directions_info"] = data["directionsInfo"]
-    park["id"] = data["id"]
-    park["images"] = data["images"]
 
-    lat, long = data["latLong"].split(",")
-    park["latitude"] = float(lat.split(":")[1])
-    park["longitude"] = float(long.split(":")[1])
-
-    park["name"] = data["fullName"]
-    park["park_code"] = data["parkCode"]
-    park["states"] = data["states"].split(",")
-    park["url"] = data["url"]
+    park["id"] = _id
+    park["name"] = _name
+    park["description"] = _description
+    park["url"] = _url
+    park["img"] = _img
+    park["weather"] = _weather
 
     return park
 
@@ -73,9 +77,10 @@ def __park_from_data(data):
 def get_parks_by_activities(
     query: str = None,
     activity_ids: list = None,
-    limit: int = 50,
+    limit: int = 5,
     start: int = 0,
     sort: str = None,
+    state: str = "",
 ) -> list:
     """
     Retrieve national parks that are related to particular categories of activity
@@ -99,37 +104,50 @@ def get_parks_by_activities(
 
     Returns
     -------
-    list[activity_parks]
-
-        activity_parks:
-            id: str
-            name: str
-            parks: [park]
-
-        park:
-            states: str
-                comma separated 2-character state codes
-            parkCode: str
-            designation: str
-            fullName: str
-            url: str
-            name: str
+    list
+        description: str
+        id: str
+        img: str
+        name: str
+        parkCode: str
+        url: str
+        weather:
+            clouds: int
+                0 to 100, percentage
+            precipitation: int
+                0 to 100, percentage
+            temperature: float
+            weather: str
+                short description of weather
+                https://openweathermap.org/weather-conditions
     """
+    if activity_ids == None:
+        activity_ids = []
     try:
         response = requests.get(
             f"{BASE_URL}/activities/parks",
             params={
                 "api_key": NATIONAL_PARKS_KEY,
-                "ids": activity_ids,
+                "id": ",".join(activity_ids),
                 "q": query,
-                "limit": limit,
+                "limit": MAX_LIMIT,
                 "start": start,
                 "sort": sort,
             },
         )
-        data = response.json()["data"]
-        return data
-    except (InternalServerError, NotFound, TypeError):
+        data = response.json()["data"][0]["parks"]
+        data_state = random.sample(
+            list(filter(lambda p: state in p["states"], data)), limit
+        )
+        codes = list(map(lambda p: p["parkCode"], data_state))
+        parks = []
+        for i in range(len(codes)):
+            parks.append(get_parks(park_codes=[codes[i]], limit=1)[0])
+            if i > limit:
+                break
+        return parks
+    except (InternalServerError, NotFound, TypeError) as e:
+        print(e)
         return []
 
 
@@ -138,7 +156,7 @@ def get_parks(
     query: str = None,
     park_codes: list = None,
     state_code: str = None,
-    limit: int = 50,
+    limit: int = 5,
     start: int = 0,
     sort: str = "fullName",
 ) -> list:
@@ -172,33 +190,23 @@ def get_parks(
     Returns
     -------
     list
-        activities: list
-            id: str
-            name: str
         description: str
-        directionsInfo: str
-        directionsURL: str
         id: str
-        images: list
-            credit: str
-            altText: str
-            title: str
-            id: int
-            caption: str
-            url: str
-        latitude: float
-        longitude: float
+        img: str
         name: str
         parkCode: str
-        states: list[str]
-            list of 2-character state codes
         url: str
+        weather:
+            clouds: int
+                0 to 100, percentage
+            precipitation: int
+                0 to 100, percentage
+            temperature: float
+            weather: str
     """
-    if not park_codes:
-        park_codes = []
 
-    if park_codes and not isinstance(park_codes, list):
-        park_codes = list(park_codes)
+    if park_codes == None:
+        park_codes = []
 
     try:
         response = requests.get(
@@ -206,15 +214,15 @@ def get_parks(
             params={
                 "api_key": NATIONAL_PARKS_KEY,
                 "q": query,
-                "parkCode": park_codes,
-                "stateCode": state_code,
-                "limit": limit,
-                "start": start,
-                "sort": sort,
+                "parkCode": ",".join(park_codes),
+                # "stateCode": state_code,
+                # "limit": limit,
+                # "start": start,
+                # "sort": sort,
             },
         )
         data = response.json()["data"]
-        parks = list(map(__park_from_data, data))
+        parks = list(map(_park_from_data, data))
         return parks
     except (InternalServerError, NotFound, TypeError):
         return []

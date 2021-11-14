@@ -3,8 +3,6 @@
 """
 
 import os
-from collections import namedtuple
-from datetime import datetime
 import requests
 
 
@@ -121,11 +119,11 @@ def _format_weather_entry(data):
     _precipitation = data["pop"]
     _clouds = data["clouds"]
 
-    _forecast = {}
-
-    _forecast["weather"] = _weather
-    _forecast["temperature"] = _temperature
-    _forecast["precipitation"] = _precipitation
-    _forecast["clouds"] = _clouds
+    _forecast = {
+        "weather": _weather,
+        "temperature": _temperature,
+        "precipitation": _precipitation,
+        "clouds": _clouds,
+    }
 
     return _forecast

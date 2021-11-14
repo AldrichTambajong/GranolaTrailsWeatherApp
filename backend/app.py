@@ -45,10 +45,9 @@ def login():
                     "login": "valid",
                     "status": 200,
                 }
-                return jsonify(jsonData)
             else:
                 jsonData = {"status": "invalid"}
-                return jsonify(jsonData)
+            return jsonify(jsonData)
 
 
 @app.route("/signUp", methods=["POST"])

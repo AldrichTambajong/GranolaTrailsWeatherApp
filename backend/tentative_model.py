@@ -26,15 +26,11 @@ Table 3: Favorites_List
 db = SQLAlchemy(app)
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80))
     email = db.Column(db.String(120))
     password = db.Column(db.String(80))
 
     def __repr__(self):
         return f"<User {self.username}>"
-
-    def get_username(self):
-        return self.username
     
     def get_email(self):
         return self.email
@@ -58,4 +54,7 @@ class User_Attributes(db.Model):
 class Favorites_list(db.Model):
     username = db.Column(db.String(80), nullable=False)
     activity_location = db.Column(db.String(80), nullable=False)
+    # Maybe place activity names too or
+    # use boolean values as for the attributes
+    # location just feels incomplete
 db.create_all()

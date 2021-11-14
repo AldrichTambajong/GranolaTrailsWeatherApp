@@ -11,7 +11,7 @@ from sqlalchemy import func
 from passlib.hash import sha256_crypt
 from tentative_model import *
 
-from national_parks import get_all_activities
+from national_parks import get_parks_and_weather
 
 app = Flask(__name__)
 
@@ -46,10 +46,9 @@ def login():
                     "login": "valid",
                     "status": 200,
                 }
-                return jsonify(jsonData)
             else:
                 jsonData = {"status": "invalid"}
-                return jsonify(jsonData)
+            return jsonify(jsonData)
 
 
 @app.route("/signUp", methods=["POST"])
@@ -88,11 +87,23 @@ def signUp():
         return jsonify(successObj)
 
 
+@app.route("/parks", methods=["POST"])
+def get_users_parks():
+    data = request.get_json()
+    user_state = data.get("user_state")
+    favorites = [
+        "fishing",
+        "hiking",
+        "camping",
+    ]
+    parks = get_parks_and_weather(favorites, user_state)
+    return jsonify(parks)
+
+
 def main():
     """
     runs the app
     """
-    get_all_activities()
     app.run(debug=True, port=int(os.environ.get("PORT", 5000)))
 
 

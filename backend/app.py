@@ -42,6 +42,7 @@ def login():
                 jsonData = {
                     "email": data.get("email"),
                     "password": data.get("password"),
+                    "user_state": user.user_state,
                     "login": "valid",
                     "status": 200,
                 }

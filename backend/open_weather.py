@@ -114,13 +114,13 @@ def _format_weather_entry(data):
     formats the weather entry to be more useful
     """
 
-    _weather = data["weather"][0]["main"]
+    _condition = data["weather"][0]["main"]
     _temperature = data["temp"]["day"]
     _precipitation = data["pop"]
     _clouds = data["clouds"]
 
     _forecast = {
-        "weather": _weather,
+        "condition": _condition,
         "temperature": _temperature,
         "precipitation": _precipitation,
         "clouds": _clouds,

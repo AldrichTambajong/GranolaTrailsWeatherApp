@@ -10,6 +10,8 @@ from flask_login import current_user, LoginManager, login_user, logout_user
 from sqlalchemy import func
 from passlib.hash import sha256_crypt
 
+from national_parks import get_all_activities
+
 app = Flask(__name__)
 
 load_dotenv(find_dotenv())
@@ -79,6 +81,7 @@ def main():
     """
     runs the app
     """
+    get_all_activities()
     app.run(debug=True, port=int(os.environ.get("PORT", 5000)))
 
 

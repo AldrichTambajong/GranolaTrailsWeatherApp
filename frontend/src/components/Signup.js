@@ -26,6 +26,8 @@ function Signup(props) {
             'camping': camping,
             'bouldering': bouldering
         }
+
+
         fetch('/signUp', {
             method: 'POST',
             headers: {

@@ -10,39 +10,15 @@ import ActivityList from './components/ActivityList';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(sessionStorage.getItem('loggedIn'))
-  const [hasData, setHasData] = useState(localStorage.getItem('hasData'))
+  // const [hasData, setHasData] = useState(localStorage.getItem('hasData'))
   const [signedUp, setSignedUp] = useState()
   const [name, setName] = useState(sessionStorage.getItem("name"))
   const [email, setEmail] = useState(sessionStorage.getItem("email"))
+  const [userState, setUserState] = useState('')
 
-  // localStorage.getItem('hasData')
+  // console.log("this is logged in in app = " + loggedIn)
 
-  if (loggedIn === "true") {
-    let checkAttributes = { 'email': email }
-    fetch('/hasAttributes', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(checkAttributes)
-    }).then(response => response.json())
-      .then((data) => {
-        console.log(data)
-        if (data.exists === "true") {
-          // console.log("true in this function is touched")
-          localStorage.setItem('hasData', true)
-          setHasData(localStorage.getItem('hasData'))
-          console.log("hasData" + hasData)
-        } else {
-          // console.log("false in this function is touched")
-
-          localStorage.setItem('hasData', false)
-          setHasData(localStorage.getItem('hasData'))
-          console.log("hasData" + hasData)
-
-        }
-      })
-  }
+  // console.log('state in app.js = ' + sessionStorage.getItem('state'))
 
   return (
     <div className="App">
@@ -57,7 +33,7 @@ function App() {
               <Navigate to="/home"></Navigate>
               :
               <div>
-                <Login setName={setName} setLoggedIn={setLoggedIn} setEmail={setEmail}></Login>
+                <Login setName={setName} setLoggedIn={setLoggedIn} setEmail={setEmail} setUserState={setUserState}></Login>
                 <div className="signUpLink">
                   <p>Don't have an account?</p>
                   <NavLink to="/signUp">Sign Up</NavLink>
@@ -73,7 +49,7 @@ function App() {
               <div class="row">
               </div>
               <div class="row">
-                <ActivityList />
+                <ActivityList userState={userState} />
               </div>
             </div>
 

@@ -80,7 +80,6 @@ def signUp():
             camping=camping,
             bouldering=bouldering,
         )
-        # print(new_account)
         db.session.add(new_account)
         db.session.commit()
         successObj = {"message": "New user registered", "status": 200}

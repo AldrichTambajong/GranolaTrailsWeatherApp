@@ -10,15 +10,10 @@ import ActivityList from './components/ActivityList';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(sessionStorage.getItem('loggedIn'))
-  // const [hasData, setHasData] = useState(localStorage.getItem('hasData'))
   const [signedUp, setSignedUp] = useState()
   const [name, setName] = useState(sessionStorage.getItem("name"))
   const [email, setEmail] = useState(sessionStorage.getItem("email"))
   const [userState, setUserState] = useState('')
-
-  // console.log("this is logged in in app = " + loggedIn)
-
-  // console.log('state in app.js = ' + sessionStorage.getItem('state'))
 
   return (
     <div className="App">

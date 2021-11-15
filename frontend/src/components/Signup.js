@@ -37,7 +37,6 @@ function Signup(props) {
         })
             .then(response => response.json())
             .then((data) => {
-                console.log(data)
                 // Sets setSignedUp to true to redirect to login page
                 if (data.status === 200) {
                     props.setSignedUp(true)
@@ -131,7 +130,6 @@ function Signup(props) {
                     <Form.Group class="form-check">
                         <input class="form-check-input" type="checkbox" value={hiking} id="checkHiking" onChange={(e) => {
                             setHiking(true);
-                            // console.log("hiking = " + hiking)
                         }}></input>
                         <label class="form-check-label" for="checkHiking">
                             Hiking
@@ -140,7 +138,6 @@ function Signup(props) {
                     <Form.Group class="form-check">
                         <input class="form-check-input" type="checkbox" value={offroading} id="checkOffroading" onChange={(e) => {
                             setOffroading(true);
-                            // console.log("offroading = " + offroading)
                         }}></input>
                         <label class="form-check-label" for="checkOffroading">
                             Offroading
@@ -149,7 +146,6 @@ function Signup(props) {
                     <Form.Group class="form-check">
                         <input class="form-check-input" type="checkbox" value={fishing} id="checkFishing" onChange={(e) => {
                             setFishing(true);
-                            // console.log("fishing = " + fishing)
                         }}></input>
                         <label class="form-check-label" for="checkFishing">
                             Fishing
@@ -158,7 +154,6 @@ function Signup(props) {
                     <Form.Group class="form-check">
                         <input class="form-check-input" type="checkbox" value={bouldering} id="checkBouldering" onChange={(e) => {
                             setBouldering(true);
-                            // console.log("bouldering = " + bouldering)
                         }}></input>
                         <label class="form-check-label" for="checkBouldering">
                             Bouldering

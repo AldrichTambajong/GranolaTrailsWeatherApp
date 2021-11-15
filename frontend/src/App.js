@@ -37,17 +37,18 @@ function App() {
           }></Route>
 
           <Route path="/home" element={
-
-            <div class="container">
-              <Navbar name={name} email={email}></Navbar>
-              <h1>Granola Trails</h1>
-              <div class="row">
+            loggedIn === 'true' ?
+              <div class="container">
+                <Navbar name={name} email={email}></Navbar>
+                <h1>Granola Trails</h1>
+                <div class="row">
+                </div>
+                <div class="row">
+                  <ActivityList userState={userState} />
+                </div>
               </div>
-              <div class="row">
-                <ActivityList userState={userState} />
-              </div>
-            </div>
-
+              :
+              <Navigate to="/login"></Navigate>
           }></Route>
 
 

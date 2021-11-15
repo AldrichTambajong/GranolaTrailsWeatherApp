@@ -177,10 +177,12 @@ def get_parks_and_weather(
         )
         data = response.json()["data"][0]["parks"]
         data_state = list(filter(lambda p: state in p["states"], data))
-        if sort:
-            data_state = data_state[:limit]
-        else:
-            data_state = random.sample(data_state, limit)
+        if data_state:
+            if sort:
+                data_state = data_state[:limit]
+            else:
+                amount = min(len(data_state), limit)
+                data_state = random.sample(data_state, amount)
         codes = list(map(lambda p: p["parkCode"], data_state))
         parks = []
         for index, value in enumerate(codes):

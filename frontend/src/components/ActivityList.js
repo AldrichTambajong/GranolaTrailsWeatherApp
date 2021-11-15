@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react'
-import { Card, Button, Container, Row, Col } from "react-bootstrap"
+import { Card, Button, Container, Row, Col, Spinner } from "react-bootstrap"
 
 function ActivityList(props) {
 
@@ -21,39 +21,46 @@ function ActivityList(props) {
             .then((data) => {
                 setListOfActivities([...data])
             })
+        console.log(listOfActivities)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    return (
-        <Container>
-            <Row>
-                {listOfActivities.map((item, index) => (
-                    <Col>
-                        <Card key={index} style={{ width: '18rem' }}>
-                            <Card.Img variant="top" src={item["img"]} />
-                            <Card.Body>
-                                <Card.Title>{item["name"]}</Card.Title>
-                                <Card.Text>
-                                    Temperature: {item["weather"]["temperature"]}° Farenheight
-                                    <br />
-                                    Precipitation: {item["weather"]["precipitation"]}%
-                                    <br />
-                                    Cloud Coverage: {item["weather"]["clouds"]}%
-                                    <br />
-                                    Condition: {item["weather"]["condition"]}
-                                    <br />
-                                    {item["description"]}
-                                </Card.Text>
-                                <Button variant="primary" onClick={() => {
-                                    window.location.href = item["Park_URL"];
-                                    return null;
-                                }}>Go To Site</Button>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                ))}
-            </Row>
-        </Container>
-    )
+    if (listOfActivities.length !== 0) {
+        return (
+            <Container>
+                <Row>
+                    {listOfActivities.map((item, index) => (
+                        <Col>
+                            <Card key={index} style={{ width: '18rem' }}>
+                                <Card.Img variant="top" src={item["img"]} />
+                                <Card.Body>
+                                    <Card.Title>{item["name"]}</Card.Title>
+                                    <Card.Text>
+                                        <p><b>Temperature:</b> {item["weather"]["temperature"]}° F</p>
+                                        <p><b>Precipitation:</b> {item["weather"]["precipitation"]}%</p>
+                                        <p><b>Cloud Coverage:</b> {item["weather"]["clouds"]}%</p>
+                                        <p><b>Condition:</b> {item["weather"]["condition"]}</p>
+                                        {item["description"]}
+                                    </Card.Text>
+                                    <Button variant="primary" onClick={() => {
+                                        window.location.href = item["Park_URL"];
+                                        return null;
+                                    }}>Go To Site</Button>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    ))}
+                </Row>
+            </Container>
+        )
+    } else {
+        return (
+            <Spinner animation="border" role="status" className="bruv">
+                <span className="visually-hidden">Loading...</span>
+            </Spinner>
+        )
+    }
+
 }
 
 export default ActivityList

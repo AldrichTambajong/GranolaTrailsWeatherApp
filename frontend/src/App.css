@@ -183,8 +183,21 @@
   background-color: #04AA6D;
 }
 
+.logout{
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  background-color: #b23b3b;
+}
+
 .navbar{
   background-color: black;
   height: auto;
   padding: 0%;
+}
+
+.bruv{
+  margin: auto;
 }

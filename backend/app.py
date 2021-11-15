@@ -90,6 +90,7 @@ def signUp():
 def get_users_parks():
     data = request.get_json()
     user_state = data.get("user_state")
+    # user_state = "UT"
     favorites = [
         "fishing",
         "hiking",

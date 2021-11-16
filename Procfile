@@ -1,1 +1,2 @@
-web: python backend/app.py && cd frontend npm run start
+web: cd frontend npm run start
+api: python backend/app.py

@@ -111,7 +111,7 @@ def _format_weather_entry(data):
 
     _condition = data["weather"][0]["main"]
     _temperature = data["temp"]["day"]
-    _precipitation = data["pop"]
+    _precipitation = int(data["pop"] * 100)
     _clouds = data["clouds"]
 
     _forecast = {

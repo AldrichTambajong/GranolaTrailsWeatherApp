@@ -63,13 +63,13 @@ class ParksTests(unittest.TestCase):
                     }
                 ],
                 "clouds": 3,
-                "pop": 0,
+                "pop": 0.5,
                 "uvi": 3.26,
             },
             EXPECTED: {
                 "condition": "Clear",
                 "temperature": 54.91,
-                "precipitation": 0,
+                "precipitation": 50,
                 "clouds": 3,
             },
         }

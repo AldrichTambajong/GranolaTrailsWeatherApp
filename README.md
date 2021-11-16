@@ -21,7 +21,8 @@
   2. After installation, run `$ flask --help` to confirm installation was successful
 - requests: Utilized in Python to request API data through CRUD functions
   1. Run `$ pip install requests`
-- 
+- react: Javascript framework utilized for our applications
+  1. Run `$ npm i react`
 
 #### Installation
 - Get API Key for OpenWeather
@@ -30,6 +31,12 @@
 - Get API key for National Parks 
   1. Documentation for this process: https://docs.genius.com/#/getting-started-h1
   2. Store as `NATIONAL_PARKS_KEY=<insert key>`
+- Get Database URL
+  1. Create Heroku Database & get Database URL 
+  2. Store as `DATABASE_URL=<insert key>`
 - Clone repository from github
-  1. `$ git clone git@github.com:csc4350-f21/project1-tngo23.git`
-- Store Spotify Client ID, Spotify Client Secret, & Genius API key in .env file 
+  1. `$ git clone git@github.com:AldrichTambajong/Project2-CodeRangers.git`
+- Store `OPEN_WEATHER_KEY`, `NATIONAL_PARKS_KEY`, & `DATABASE_URL` in .env file 
+- Open two terminals, one in `backend` folder and one in `frontend` folder
+  1. Run `python3 app.py` in backend folder
+  2. Run `npm run start` in frontend folder

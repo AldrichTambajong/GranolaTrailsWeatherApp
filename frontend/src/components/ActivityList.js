@@ -20,7 +20,6 @@ function ActivityList(props) {
       .then((data) => {
         setListOfActivities([...data]);
       });
-    console.log(listOfActivities);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -52,7 +51,6 @@ function ActivityList(props) {
                   <Button
                     variant='primary'
                     onClick={() => {
-                      console.log(item);
                       window.open(item["url"], "_blank");
                       return null;
                     }}>

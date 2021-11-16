@@ -3,13 +3,14 @@
 """
 
 import os
-from flask import json, Flask, request
+from flask import Flask, request
 from flask.json import jsonify
 from dotenv import load_dotenv, find_dotenv
-from flask_login import current_user, LoginManager, login_user, logout_user
-from sqlalchemy import func
+
+# from flask_login import current_user, LoginManager, login_user, logout_user
+# from sqlalchemy import func
 from passlib.hash import sha256_crypt
-from tentative_model import *
+from models import db, User
 
 from national_parks import get_parks_and_weather
 
@@ -19,7 +20,7 @@ db.init_app(app)
 
 load_dotenv(find_dotenv())
 
-login_manager = LoginManager()
+# login_manager = LoginManager()
 
 db_url = os.getenv("DATABASE_URL")
 if db_url.startswith("postgres://"):
@@ -31,24 +32,21 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 @app.route("/login", methods=["POST"])
 def login():
 
-    if request.method == "POST":
-        data = request.get_json()
-        user = User.query.filter_by(email=data.get("email")).first()
+    data = request.get_json()
+    user = User.query.filter_by(email=data.get("email")).first()
 
-        if user:
-            password = sha256_crypt.verify(data.get("password"), user.password)
-
-            if password:
-                jsonData = {
-                    "email": data.get("email"),
-                    "password": data.get("password"),
-                    "user_state": user.user_state,
-                    "login": "valid",
-                    "status": 200,
-                }
-            else:
-                jsonData = {"status": "invalid"}
-            return jsonify(jsonData)
+    jsonData = {"status": "invalid"}
+    if user:
+        password = sha256_crypt.verify(data.get("password"), user.password)
+        if password:
+            jsonData = {
+                "email": data.get("email"),
+                "password": data.get("password"),
+                "user_state": user.user_state,
+                "login": "valid",
+                "status": 200,
+            }
+    return jsonify(jsonData)
 
 
 @app.route("/signUp", methods=["POST"])
@@ -88,9 +86,12 @@ def signUp():
 
 @app.route("/parks", methods=["POST"])
 def get_users_parks():
+    """
+    returns a sample of parks in ther user's state that feature the activities they like
+    """
     data = request.get_json()
     user_state = data.get("user_state")
-    # user_state = "UT"
+    # hardcoded favorites for now
     favorites = [
         "fishing",
         "hiking",

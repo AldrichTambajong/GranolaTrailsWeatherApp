@@ -1,8 +1,3 @@
-# from app import app
-# from app import app
-from flask_login import UserMixin
-from flask_sqlalchemy import SQLAlchemy
-
 """
     Table 1: Users
 Columns:
@@ -22,13 +17,35 @@ Columns:
 
 Table 3: Favorites_List
 - Username: String
-- activity_location: String 
-
+- activity_location: String
 """
+
+# from app import app
+# from flask_login import UserMixin
+from flask_sqlalchemy import SQLAlchemy
+
 db = SQLAlchemy()
 
 
 class User(db.Model):
+    """
+    id: int
+        primary key, automatically generated
+    email: str
+        valid email, must be unique
+    password: str
+        hashed
+    user_state: str
+        2-character state code
+    hiking: bool
+    fishing: bool
+    offroad: bool
+    camping: bool
+    bouldering: bool
+        true if the user is interested in that activity
+        false if not
+    """
+
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120))
     password = db.Column(db.String(80))
@@ -43,6 +60,9 @@ class User(db.Model):
         return f"<Email {self.email}>"
 
     def get_email(self):
+        """
+        returns the email for the user
+        """
         return self.email
 
 

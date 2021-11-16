@@ -288,7 +288,7 @@ class ParksTests(unittest.TestCase):
             WEATHER: {
                 "condition": "Clear",
                 "temperature": 62.78,
-                "precipitation": 0,
+                "precipitation": 50,
                 "clouds": 4,
             },
             OUTPUT: {
@@ -300,7 +300,7 @@ class ParksTests(unittest.TestCase):
                 "weather": {
                     "condition": "Clear",
                     "temperature": 62.78,
-                    "precipitation": 0,
+                    "precipitation": 50,
                     "clouds": 4,
                 },
             },

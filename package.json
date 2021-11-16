@@ -16,8 +16,8 @@
     },
     "scripts": {
         "start": "react-scripts start",
-        "backend": "cd Backend && python3 app.py",
-        "build": "react-scripts build",
+        "backend": "cd backend && python3 app.py",
+        "build": "cd frontend react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "lint": "./node_modules/.bin/eslint"

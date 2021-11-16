@@ -105,8 +105,9 @@ def main():
     runs the app
     """
     app.run(
-        host="0.0.0.0",
-        port=int(os.getenv("PORT", 8080)),  # pylint: disable=invalid-envvar-default
+        debug=True,
+        host=os.getenv("IP", "0.0.0.0"),
+        port=int(os.getenv("PORT", 8081)),
     )
 
 

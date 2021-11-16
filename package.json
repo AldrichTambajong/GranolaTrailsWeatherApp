@@ -17,7 +17,7 @@
     },
     "scripts": {
         "start": "cd frontend && react-scripts start",
-        "backend": "cd backend && python3 app.py",
+        "backend": "python3 backend/app.py",
         "frontend": "cd frontend && npm run start"
     },
     "eslintConfig": {

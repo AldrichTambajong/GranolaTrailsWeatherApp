@@ -4,7 +4,6 @@ import { Navigate } from "react-router-dom";
 function Logout(props) {
   const { setLoggedIn } = props;
   function handleLogout() {
-    console.log("logging out");
     sessionStorage.clear();
     localStorage.clear();
     setLoggedIn(false);

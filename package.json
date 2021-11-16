@@ -21,7 +21,7 @@
         "frontend": "cd frontend && npm run start",
         "build": "cd frontend && react-scripts build",
         "test": "cd frontend && react-scripts test",
-        "eject": "cd frontend &&react-scripts eject"
+        "eject": "cd frontend && react-scripts eject"
     },
     "eslintConfig": {
         "extends": [

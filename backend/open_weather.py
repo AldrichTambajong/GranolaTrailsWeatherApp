@@ -19,49 +19,48 @@ BASE_URL = "https://api.openweathermap.org/data/2.5"
 EXCLUDED = ["current", "minutely", "hourly", "alerts"]
 
 
-def get_forecast_by_city(city: str, state: str):
-    """
-    Search weather forecast for 5 days with data every 3 hours by city name.
+# def get_forecast_by_city(city: str, state: str):
+#     """
+#     Search weather forecast for 5 days with data every 3 hours by city name.
 
-    Parameters
-    ----------
-    city: str
-        name of the city
-    state: str
-        2-character state code
+#     Parameters
+#     ----------
+#     city: str
+#         name of the city
+#     state: str
+#         2-character state code
 
-    Returns
-    -------
-    list of the Weather namedtuple
-        weather: list[str]
-            https://openweathermap.org/weather-conditions
-        temperature: float
-            fahrenheit
-        precipitation: int
-            probability of precipitation
-            from 0 to 100
-        clouds: int
-            percentage of cloud cover
-            from 0 to 100
-        month: int
-        day: int
-        hour: int
-    """
-    try:
-        response = requests.get(
-            f"{BASE_URL}/forecast",
-            params={
-                "appid": OPEN_WEATHER_KEY,
-                "q": f"{city},{state},us",
-                "units": "imperial",
-            },
-        )
-        data = response.json()
-        weather = list(map(_format_weather_entry, data["list"]))
-        return weather
-    except (InternalServerError, NotFound, KeyError, TypeError):
-        print("failed response")
-        return []
+#     Returns
+#     -------
+#     condition: str
+#         https://openweathermap.org/weather-conditions
+#     temperature: float
+#         fahrenheit
+#     precipitation: int
+#         probability of precipitation
+#         from 0 to 100
+#     clouds: int
+#         percentage of cloud cover
+#         from 0 to 100
+#     month: int
+#     day: int
+#     hour: int
+#     """
+#     try:
+#         response = requests.get(
+#             f"{BASE_URL}/forecast",
+#             params={
+#                 "appid": OPEN_WEATHER_KEY,
+#                 "q": f"{city},{state},us",
+#                 "units": "imperial",
+#             },
+#         )
+#         data = response.json()
+#         weather = list(map(_format_weather_entry, data["list"]))
+#         return weather
+#     except (InternalServerError, NotFound, KeyError, TypeError):
+#         print("failed response")
+#         return []
 
 
 def get_forecast_by_coordinates(latitude: float, longitude: float):
@@ -75,20 +74,16 @@ def get_forecast_by_coordinates(latitude: float, longitude: float):
 
     Returns
     -------
-    list of the Weather namedtuple
-        weather: list[str]
-            https://openweathermap.org/weather-conditions
-        temperature: float
-            fahrenheit
-        precipitation: int
-            probability of precipitation
-            from 0 to 100
-        clouds: int
-            percentage of cloud cover
-            from 0 to 100
-        month: int
-        day: int
-        hour: int
+    condition: str
+        https://openweathermap.org/weather-conditions
+    temperature: float
+        fahrenheit
+    precipitation: int
+        probability of precipitation
+        from 0 to 100
+    clouds: int
+        percentage of cloud cover
+        from 0 to 100
     """
     try:
         response = requests.get(
@@ -106,7 +101,7 @@ def get_forecast_by_coordinates(latitude: float, longitude: float):
         return weather
     except (InternalServerError, NotFound, KeyError, TypeError):
         print("failed response")
-        return []
+        return {"error": "could not get weather information"}
 
 
 def _format_weather_entry(data):

@@ -14,15 +14,13 @@ p{
 }
 
 .login{
-    text-align: center;
-    margin-top: 3%;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-}
-.form-control{
+    font-size: 20px; 
     width: 200px;
+    margin: 0 auto;
+}
+.login-btn{
     text-align: center;
-    margin-left: 44.7%;
 }
 a{
     text-decoration: none;

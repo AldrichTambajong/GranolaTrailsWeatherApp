@@ -61,11 +61,12 @@ function ActivityList(props) {
                   </Button>
                 </Card.Body>
                 <ListGroup className="list-group-flush">
-                  <ListGroupItem>Bouldering Status: {item["activities"]["bouldering"] ? 'Good to go bouldering!' : 'Do not go bouldering today.'}</ListGroupItem>
-                  <ListGroupItem>Camping Status: {item["activities"]["camping"] ? 'Good to go camping!' : 'Do not go camping today.'}</ListGroupItem>
-                  <ListGroupItem>Fishing Status: {item["activities"]["fishing"] ? 'Good to go fishing!' : 'Do not go fishing today.'}</ListGroupItem>
-                  <ListGroupItem>Hiking Status: {item["activities"]["hiking"] ? 'Good to go hiking!' : 'Do not go hiking today.'}</ListGroupItem>
-                  <ListGroupItem>Off-Roading Status: {item["activities"]["offroading"] ? 'Good to go off-roading!' : 'Do not go offroading today.'}</ListGroupItem>
+                  <ListGroupItem><b>Activity Status</b></ListGroupItem>
+                  <ListGroupItem>Bouldering: {item["activities"]["bouldering"] ? 'Good to go 🧗!' : 'Do not go today.'}</ListGroupItem>
+                  <ListGroupItem>Camping: {item["activities"]["camping"] ? 'Good to go 🏕️!' : 'Do not go today.'}</ListGroupItem>
+                  <ListGroupItem>Fishing: {item["activities"]["fishing"] ? 'Good to go 🎣!' : 'Do not go today.'}</ListGroupItem>
+                  <ListGroupItem>Hiking: {item["activities"]["hiking"] ? 'Good to go 🥾!' : 'Do not go oday.'}</ListGroupItem>
+                  <ListGroupItem>Off-Roading: {item["activities"]["offroading"] ? 'Good to go 🚗!' : 'Do not go today.'}</ListGroupItem>
                 </ListGroup>
               </Card>
             </Col>

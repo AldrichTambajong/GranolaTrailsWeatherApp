@@ -90,6 +90,7 @@ def get_users_parks():
     returns a sample of parks in ther user's state that feature the activities they like
     """
     data = request.get_json()
+    data.get("activities")
     user_state = data.get("user_state")
     # hardcoded favorites for now
     favorites = [

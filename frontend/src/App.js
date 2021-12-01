@@ -20,6 +20,7 @@ function App() {
   const [name, setName] = useState(sessionStorage.getItem("name"));
   const [email, setEmail] = useState(sessionStorage.getItem("email"));
   const [userState, setUserState] = useState("");
+  const [userActivities, setUserActivities] = useState([]);
 
   return (
     <div className='App'>
@@ -40,7 +41,8 @@ function App() {
                     setName={setName}
                     setLoggedIn={setLoggedIn}
                     setEmail={setEmail}
-                    setUserState={setUserState}></Login>
+                    setUserState={setUserState}
+                    setUserActivities={setUserActivities}></Login>
                   <div className='signUpLink'>
                     <p>Don't have an account?</p>
                     <NavLink to='/signUp'>Sign Up</NavLink>
@@ -58,7 +60,10 @@ function App() {
                   <h1>Granola Trails</h1>
                   <div class='row'></div>
                   <div class='row'>
-                    <ActivityList userState={userState} />
+                    <ActivityList
+                      userState={userState}
+                      userActivities={userActivities}
+                    />
                   </div>
                 </div>
               ) : (

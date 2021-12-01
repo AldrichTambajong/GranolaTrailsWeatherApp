@@ -5,6 +5,7 @@
 # import base64
 # import random
 import os
+import re
 import random
 import requests
 
@@ -70,7 +71,7 @@ ACTIVITIES = {
 
 
 DRIZZLE_LIMIT = 0.05
-COLD_LIMIT = 40
+COLD_LIMIT = 32
 HOT_LIMIT = 90
 
 
@@ -133,6 +134,9 @@ def _park_from_data(data):
     """
 
     _description = data["description"]
+
+    _description = re.findall(r"[^?!.]+[?!.]", _description)[0]
+
     _id = data["id"]
     _img = ""
     if data["images"]:
@@ -169,7 +173,7 @@ def get_parks_and_weather(
     activity_ids: list = None,
     state: str = "",
     query: str = None,
-    limit: int = 5,
+    limit: int = 4,
     sort: bool = False,
 ) -> list:
     """

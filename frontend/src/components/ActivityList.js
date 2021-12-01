@@ -77,34 +77,37 @@ function ActivityList(props) {
                 </Card.Body>
                 <ListGroup className='list-group-flush'>
                   <ListGroupItem>
-                    Bouldering Status:{" "}
+                    <b>Activity Status</b>
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    Bouldering:{" "}
                     {item["activities"]["bouldering"]
-                      ? "Good to go bouldering!"
-                      : "Do not go bouldering today."}
+                      ? "Good to go 🧗!"
+                      : "Do not go today."}
                   </ListGroupItem>
                   <ListGroupItem>
-                    Camping Status:{" "}
+                    Camping:{" "}
                     {item["activities"]["camping"]
-                      ? "Good to go camping!"
-                      : "Do not go camping today."}
+                      ? "Good to go 🏕️!"
+                      : "Do not go today."}
                   </ListGroupItem>
                   <ListGroupItem>
-                    Fishing Status:{" "}
+                    Fishing:{" "}
                     {item["activities"]["fishing"]
-                      ? "Good to go fishing!"
-                      : "Do not go fishing today."}
+                      ? "Good to go 🎣!"
+                      : "Do not go today."}
                   </ListGroupItem>
                   <ListGroupItem>
-                    Hiking Status:{" "}
+                    Hiking:{" "}
                     {item["activities"]["hiking"]
-                      ? "Good to go hiking!"
-                      : "Do not go hiking today."}
+                      ? "Good to go 🥾!"
+                      : "Do not go oday."}
                   </ListGroupItem>
                   <ListGroupItem>
-                    Off-Roading Status:{" "}
+                    Off-Roading:{" "}
                     {item["activities"]["offroading"]
-                      ? "Good to go off-roading!"
-                      : "Do not go offroading today."}
+                      ? "Good to go 🚗!"
+                      : "Do not go today."}
                   </ListGroupItem>
                 </ListGroup>
               </Card>

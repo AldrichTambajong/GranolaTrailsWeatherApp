@@ -69,6 +69,45 @@ ACTIVITIES = {
 }
 
 
+DRIZZLE_LIMIT = 0.05
+COLD_LIMIT = 40
+HOT_LIMIT = 90
+
+
+def go_hiking(weather):
+    return (
+        weather["condition"] in ["Clear", "Clouds", "Drizzle"]
+        and weather["precipitation"] <= DRIZZLE_LIMIT
+    )
+
+
+def go_fishing(weather):
+    return (
+        weather["condition"] in ["Clear", "Clouds", "Drizzle"]
+        and weather["precipitation"] <= DRIZZLE_LIMIT
+        and COLD_LIMIT <= weather["low"]
+        and weather["high"] <= HOT_LIMIT
+    )
+
+
+def go_offroading(weather):
+    return (
+        weather["condition"] in ["Clear", "Clouds", "Drizzle"]
+        and weather["precipitation"] <= DRIZZLE_LIMIT
+    )
+
+
+def go_camping(weather):
+    return weather["condition"] in ["Clear", "Clouds"]
+
+
+def go_bouldering(weather):
+    return (
+        weather["condition"] in ["Clear", "Clouds", "Drizzle"]
+        and weather["precipitation"] <= DRIZZLE_LIMIT
+    )
+
+
 def _park_from_data(data):
     """
     takes in the info for a park from /parks
@@ -105,6 +144,14 @@ def _park_from_data(data):
     _longitude = _lat_long[1].split(":")[1]
     _weather = get_forecast_by_coordinates(_latitude, _longitude)
 
+    _activities = {
+        "hiking": go_hiking(_weather),
+        "fishing": go_fishing(_weather),
+        "offroading": go_offroading(_weather),
+        "camping": go_camping(_weather),
+        "bouldering": go_bouldering(_weather),
+    }
+
     park = {
         "id": _id,
         "name": _name,
@@ -112,6 +159,7 @@ def _park_from_data(data):
         "url": _url,
         "img": _img,
         "weather": _weather,
+        "activities": _activities,
     }
 
     return park

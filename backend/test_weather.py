@@ -28,32 +28,32 @@ class ParksTests(unittest.TestCase):
         # pylint: disable=line-too-long
         self.success_test_params = {
             INPUT: {
-                "dt": 1636995600,
-                "sunrise": 1636978203,
-                "sunset": 1637015629,
-                "moonrise": 1637009520,
-                "moonset": 1636965360,
-                "moon_phase": 0.39,
+                "dt": 1638295200,
+                "sunrise": 1638277812,
+                "sunset": 1638315313,
+                "moonrise": 1638262680,
+                "moonset": 1638306300,
+                "moon_phase": 0.86,
                 "temp": {
-                    "day": 54.91,
-                    "min": 43.93,
-                    "max": 58.41,
-                    "night": 47.19,
-                    "eve": 50.4,
-                    "morn": 44.6,
+                    "day": 68.18,
+                    "min": 50.97,
+                    "max": 72.52,
+                    "night": 60.78,
+                    "eve": 63.19,
+                    "morn": 51.51,
                 },
                 "feels_like": {
-                    "day": 51.51,
-                    "night": 46.49,
-                    "eve": 47.59,
-                    "morn": 39.97,
+                    "day": 66.4,
+                    "night": 60.31,
+                    "eve": 62.17,
+                    "morn": 50.07,
                 },
-                "pressure": 1024,
-                "humidity": 30,
-                "dew_point": 24.06,
-                "wind_speed": 9.48,
-                "wind_deg": 304,
-                "wind_gust": 23.89,
+                "pressure": 1020,
+                "humidity": 36,
+                "dew_point": 39.78,
+                "wind_speed": 10,
+                "wind_deg": 177,
+                "wind_gust": 16.75,
                 "weather": [
                     {
                         "id": 800,
@@ -62,15 +62,17 @@ class ParksTests(unittest.TestCase):
                         "icon": "01d",
                     }
                 ],
-                "clouds": 3,
-                "pop": 0.5,
-                "uvi": 3.26,
+                "clouds": 5,
+                "pop": 0,
+                "uvi": 4.04,
             },
             EXPECTED: {
                 "condition": "Clear",
-                "temperature": 54.91,
-                "precipitation": 50,
-                "clouds": 3,
+                "current": 68.18,
+                "low": 50.97,
+                "high": 72.52,
+                "precipitation": 0,
+                "clouds": 5,
             },
         }
 
@@ -84,6 +86,8 @@ class ParksTests(unittest.TestCase):
         input_data = test[INPUT]
         expected = test[EXPECTED]
         actual = open_weather._format_weather_entry(input_data)
+
+        print(actual)
 
         self.assertEqual(expected, actual)
 

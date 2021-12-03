@@ -433,7 +433,7 @@ class ParksTests(unittest.TestCase):
                     "current": 68.18,
                     "high": 72.52,
                     "low": 50.97,
-                    "precipitation": 0.05,
+                    "precipitation": 5,
                 },
             },
         }

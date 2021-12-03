@@ -1,2 +1,2 @@
 web: cd frontend && npm run start
-app: python3 backend/app.py
+web: python3 backend/app.py

@@ -1,5 +1,14 @@
 import { React, useState, useEffect } from "react";
-import { Card, Button, Container, Row, Col, Spinner } from "react-bootstrap";
+import {
+  Card,
+  Button,
+  Container,
+  Row,
+  Col,
+  Spinner,
+  ListGroup,
+  ListGroupItem,
+} from "react-bootstrap";
 
 function ActivityList(props) {
   let activities = {
@@ -9,6 +18,7 @@ function ActivityList(props) {
   const [listOfActivities, setListOfActivities] = useState([]);
 
   useEffect(() => {
+    console.log(JSON.stringify(activities));
     fetch("/parks", {
       method: "POST",
       headers: {
@@ -26,16 +36,24 @@ function ActivityList(props) {
   if (listOfActivities.length !== 0) {
     return (
       <Container>
+        {console.log(JSON.stringify(activities))}
         <Row>
           {listOfActivities.map((item, index) => (
             <Col>
               <Card key={index} style={{ width: "18rem" }}>
-                <Card.Img variant='top' src={item["img"]} />
+                <Card.Img
+                  style={{ width: "100%", height: "200px" }}
+                  variant='top'
+                  src={item["img"]}
+                />
                 <Card.Body>
                   <Card.Title>{item["name"]}</Card.Title>
                   <Card.Text>
                     <p>
-                      <b>Temperature:</b> {item["weather"]["temperature"]}° F
+                      <b>Temp High:</b> {item["weather"]["high"]}° F
+                    </p>
+                    <p>
+                      <b>Temp Low:</b> {item["weather"]["low"]}° F
                     </p>
                     <p>
                       <b>Precipitation:</b> {item["weather"]["precipitation"]}%
@@ -57,6 +75,41 @@ function ActivityList(props) {
                     Go To Site
                   </Button>
                 </Card.Body>
+                <ListGroup className='list-group-flush'>
+                  <ListGroupItem>
+                    <b>Activity Status</b>
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    Bouldering:{" "}
+                    {item["activities"]["bouldering"]
+                      ? "Good to go 🧗!"
+                      : "Do not go today."}
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    Camping:{" "}
+                    {item["activities"]["camping"]
+                      ? "Good to go 🏕️!"
+                      : "Do not go today."}
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    Fishing:{" "}
+                    {item["activities"]["fishing"]
+                      ? "Good to go 🎣!"
+                      : "Do not go today."}
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    Hiking:{" "}
+                    {item["activities"]["hiking"]
+                      ? "Good to go 🥾!"
+                      : "Do not go oday."}
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    Off-Roading:{" "}
+                    {item["activities"]["offroading"]
+                      ? "Good to go 🚗!"
+                      : "Do not go today."}
+                  </ListGroupItem>
+                </ListGroup>
               </Card>
             </Col>
           ))}

@@ -23,6 +23,11 @@
   1. Run `$ pip install requests`
 - react: Javascript framework utilized for our applications
   1. Run `$ npm i react`
+- psycopg2: Python library to connect databse
+  1. Run [sudo] apt-get update
+  2. Then, as prerequisite for psycopg2, run [sudo] apt-get install -y libpq-dev
+  3. Finally, [sudo] pip install psycopg2.
+  Documentation and help: https://www.psycopg.org/docs/install.html , https://www.postgresql.org/docs/9.1/libpq-build.html
 
 #### Installation
 - Get API Key for OpenWeather

@@ -1,0 +1,7 @@
+Flask
+python-dotenv
+requests
+flask_SQLAlchemy
+passlib
+psycopg2
+flask_login

@@ -65,6 +65,29 @@ class User(db.Model):
         """
         return self.email
 
+    def get_state(self):
+        """
+        returns the state for the user
+        """
+        return self.user_state
+
+    def get_favorites(self):
+        """
+        returns a list of the user's favorite activities
+        """
+        activities = []
+        if self.hiking:
+            activities.append("hiking")
+        if self.fishing:
+            activities.append("fishing")
+        if self.offroad:
+            activities.append("auto_and_atv")
+        if self.camping:
+            activities.append("camping")
+        if self.bouldering:
+            activities.append("canyoneering")
+        return activities
+
 
 # with app.app_context():
 #     db.create_all()

@@ -3,7 +3,7 @@
 """
 
 import os
-from flask import Flask, request
+from flask import Flask, request, session
 from flask.json import jsonify
 from dotenv import load_dotenv, find_dotenv
 
@@ -27,11 +27,13 @@ if db_url.startswith("postgres://"):
     db_url = db_url.replace("postgres://", "postgresql://", 1)
 app.config["SQLALCHEMY_DATABASE_URI"] = db_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "SET_A_SECRET_KEY")
 
 
 @app.route("/login", methods=["POST"])
 def login():
-
+    session.pop("favorites", default=None)
+    session.pop("state", default=None)
     data = request.get_json()
     user = User.query.filter_by(email=data.get("email")).first()
 
@@ -46,6 +48,8 @@ def login():
                 "login": "valid",
                 "status": 200,
             }
+            session["favorites"] = user.get_favorites()
+            session["state"] = user.get_state()
     return jsonify(jsonData)
 
 
@@ -89,13 +93,10 @@ def get_users_parks():
     returns a sample of parks in ther user's state that feature the activities they like
     """
     data = request.get_json()
-    user_state = data.get("user_state")
-    # hardcoded favorites for now
-    favorites = [
-        "fishing",
-        "hiking",
-        "camping",
-    ]
+    user_state = session["state"]
+    favorites = session["favorites"]
+    # user_state = "TX"
+    # favorites = ["fishing"]
     parks = get_parks_and_weather(favorites, user_state)
     return jsonify(parks)
 

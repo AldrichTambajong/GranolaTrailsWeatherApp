@@ -61,6 +61,8 @@ def logout():
     """
     session.pop("favorites", default=None)
     session.pop("state", default=None)
+    json_data = {"status": 200}
+    return jsonify(json_data)
 
 
 @app.route("/signUp", methods=["POST"])
@@ -102,7 +104,7 @@ def get_users_parks():
     """
     returns a sample of parks in ther user's state that feature the activities they like
     """
-    data = request.get_json()
+    # data = request.get_json()
     user_state = session["state"]
     favorites = session["favorites"]
     parks = get_parks_and_weather(favorites, user_state)

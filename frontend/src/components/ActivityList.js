@@ -10,6 +10,18 @@ import {
   ListGroupItem,
 } from "react-bootstrap";
 
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+const EMOJI = {
+  bouldering: "🧗",
+  camping: "🏕️",
+  fishing: "🎣",
+  hiking: "🥾",
+  offroading: "🚗",
+};
+
 function ActivityList(props) {
   let activities = {
     user_state: props.userState,
@@ -18,7 +30,7 @@ function ActivityList(props) {
   const [listOfActivities, setListOfActivities] = useState([]);
 
   useEffect(() => {
-    console.log(JSON.stringify(activities));
+    // console.log(JSON.stringify(activities));
     fetch("/parks", {
       method: "POST",
       headers: {
@@ -36,7 +48,6 @@ function ActivityList(props) {
   if (listOfActivities.length !== 0) {
     return (
       <Container>
-        {console.log(JSON.stringify(activities))}
         <Row>
           {listOfActivities.map((item, index) => (
             <Col>
@@ -79,36 +90,18 @@ function ActivityList(props) {
                   <ListGroupItem>
                     <b>Activity Status</b>
                   </ListGroupItem>
-                  <ListGroupItem>
-                    Bouldering:{" "}
-                    {item["activities"]["bouldering"]
-                      ? "Good to go 🧗!"
-                      : "Do not go today."}
-                  </ListGroupItem>
-                  <ListGroupItem>
-                    Camping:{" "}
-                    {item["activities"]["camping"]
-                      ? "Good to go 🏕️!"
-                      : "Do not go today."}
-                  </ListGroupItem>
-                  <ListGroupItem>
-                    Fishing:{" "}
-                    {item["activities"]["fishing"]
-                      ? "Good to go 🎣!"
-                      : "Do not go today."}
-                  </ListGroupItem>
-                  <ListGroupItem>
-                    Hiking:{" "}
-                    {item["activities"]["hiking"]
-                      ? "Good to go 🥾!"
-                      : "Do not go oday."}
-                  </ListGroupItem>
-                  <ListGroupItem>
-                    Off-Roading:{" "}
-                    {item["activities"]["offroading"]
-                      ? "Good to go 🚗!"
-                      : "Do not go today."}
-                  </ListGroupItem>
+                  {Object.entries(item["activities"]).map(
+                    (activity_weather, index) => {
+                      return (
+                        <ListGroupItem>
+                          {capitalize(activity_weather[0])}:{" "}
+                          {activity_weather[1]
+                            ? "Good to go " + EMOJI[activity_weather[0]] + "!"
+                            : "Do not go today."}
+                        </ListGroupItem>
+                      );
+                    }
+                  )}
                 </ListGroup>
               </Card>
             </Col>

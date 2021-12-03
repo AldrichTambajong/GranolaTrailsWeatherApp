@@ -69,6 +69,8 @@ ACTIVITIES = {
     "wildlife_watching": "0B685688-3405-4E2A-ABBA-E3069492EC50",
 }
 
+USED_ACTIVITIES = set(["hiking", "fishing", "auto_and_atv", "camping", "canyoneering"])
+
 
 DRIZZLE_LIMIT = 5
 COLD_LIMIT = 32
@@ -107,6 +109,15 @@ def go_bouldering(weather):
         weather["condition"] in ["Clear", "Clouds", "Drizzle"]
         and weather["precipitation"] <= DRIZZLE_LIMIT
     )
+
+
+ACTIVITY_ALIAS = {
+    ACTIVITIES["hiking"]: {"name": "hiking", "weather": go_hiking},
+    ACTIVITIES["fishing"]: {"name": "fishing", "weather": go_fishing},
+    ACTIVITIES["auto_and_atv"]: {"name": "offroading", "weather": go_offroading},
+    ACTIVITIES["camping"]: {"name": "camping", "weather": go_camping},
+    ACTIVITIES["canyoneering"]: {"name": "bouldering", "weather": go_bouldering},
+}
 
 
 def _park_from_data(data):
@@ -148,13 +159,19 @@ def _park_from_data(data):
     _longitude = _lat_long[1].split(":")[1]
     _weather = get_forecast_by_coordinates(_latitude, _longitude)
 
-    _activities = {
-        "hiking": go_hiking(_weather),
-        "fishing": go_fishing(_weather),
-        "offroading": go_offroading(_weather),
-        "camping": go_camping(_weather),
-        "bouldering": go_bouldering(_weather),
-    }
+    _activity_id_set = set(map(lambda a: a["id"], data["activities"]))
+
+    used_set = set([ACTIVITIES[a] for a in USED_ACTIVITIES])
+
+    _present_activities = _activity_id_set & used_set
+
+    _activities = {}
+
+    for present_activity in _present_activities:
+        alias = ACTIVITY_ALIAS[present_activity]
+        name = alias["name"]
+        weather_function = alias["weather"]
+        _activities[name] = weather_function(_weather)
 
     park = {
         "id": _id,
@@ -213,6 +230,7 @@ def get_parks_and_weather(
                 short description of weather
                 https://openweathermap.org/weather-conditions
     """
+    print(activity_ids)
     if activity_ids is None:
         activity_ids = []
     else:
@@ -237,9 +255,11 @@ def get_parks_and_weather(
                 data_state = random.sample(data_state, amount)
         codes = list(map(lambda p: p["parkCode"], data_state))
         parks = []
-        for index, value in enumerate(codes):
-            parks.append(get_parks(park_codes=[value], limit=1)[0])
-            if index > limit:
+        for code in codes:
+            park_results = get_parks(park_codes=[code], limit=1)
+            if park_results:
+                parks.append(park_results[0])
+            if len(parks) >= limit:
                 break
         return parks
     except (InternalServerError, NotFound, TypeError) as error:

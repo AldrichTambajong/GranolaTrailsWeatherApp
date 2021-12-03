@@ -53,29 +53,30 @@ function Signup(props) {
     }
     return (
         <div>
+            <h1>Create Account</h1>
             <div className="signUp">
                 <form method="POST" onSubmit={e => register(e)}>
-                    <h2>Create an account</h2>
                     <div class="signUpInput">
-                        <label>Email:</label>
-                        <br />
-                        <input type="email" name="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} />
+                        <input type="email" name="email" placeholder="Enter Email" style = {{width: "250px"}} value={email} onChange={e => setEmail(e.target.value)} />
                     </div>
+                    <br />
+                    <br />
                     <div class="signUpInput">
-                        <label>Password:</label>
-                        <br />
-                        <input type="password" name="password" placeholder="password" value={password} onChange={e => setPassword(e.target.value)} />
+                        <input type="password" name="password" placeholder="Enter Password" style = {{width: "250px"}} value={password} onChange={e => setPassword(e.target.value)} />
                     </div>
-
-                    <Form.Group class="form-select" aria-label="Default select example">
+                    <br />
+                    <br />
+                    {/* <Form.Group class="form-select" aria-label="Default select example"> */}
                         <Form.Control
+                            class="form-select" 
+                            aria-label="Default select example"
                             as="select"
                             value={location}
                             onChange={e => {
                                 setLocation(e.target.value);
                             }}
                         >
-                            <option selected>Choose your State (Abbreviated)</option>
+                            <option selected>Choose your State</option>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
                             <option value="AZ">Arizona</option>
@@ -125,8 +126,10 @@ function Signup(props) {
                             <option value="WI">Wisconinsin</option>
                             <option value="WY">Wyoming</option>
                         </Form.Control>
-                    </Form.Group>
-
+                    {/* </Form.Group> */}
+                    <br />
+                    <br />
+                    <p>Choose your favorite Activities:</p>
                     <Form.Group class="form-check">
                         <input class="form-check-input" type="checkbox" value={hiking} id="checkHiking" onChange={(e) => {
                             setHiking(true);
@@ -167,8 +170,12 @@ function Signup(props) {
                             Camping
                         </label>
                     </Form.Group>
-
-                    <input type="submit" value="Sign Up" style={{ marginLeft: "auto", marginRight: "auto" }}></input>
+                    <br />
+                    <br />
+                    {/* <input type="submit" value="Sign Up" style={{ marginLeft: "auto", marginRight: "auto" }}></input> */}
+                    <div class="text-center mb-3">
+                        <button type="submit" class="btn btn-success login-btn mb-3">Sign Up</button>
+                    </div>
                 </form>
             </div>
             {/*Displays error message*/}

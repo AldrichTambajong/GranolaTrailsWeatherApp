@@ -78,10 +78,10 @@ function App() {
               ) : (
                 <div>
                   <Signup setSignedUp={setSignedUp}></Signup>
-                  <div className='loginLink'>
+                  {/* <div className='loginLink'>
                     <p>Already have an account?</p>
                     <NavLink to='/login'>Login</NavLink>
-                  </div>
+                  </div> */}
                 </div>
               )
             }></Route>

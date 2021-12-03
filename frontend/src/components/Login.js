@@ -78,9 +78,8 @@ function Login(props) {
           <br />
           {/* <input type='submit' value='Login'/> */}
           <div class="text-center mb-3">
-            <button type="submit" class="btn btn-success login-btn mb-3">LOGIN</button>
+            <button type="submit" class="btn btn-success login-btn mb-3">Login</button>
             <br />
-            <p>or</p>
         </div>
         {/* </div> */}
         </form>

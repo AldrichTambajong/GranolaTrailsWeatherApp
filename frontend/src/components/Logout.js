@@ -7,6 +7,12 @@ function Logout(props) {
     sessionStorage.clear();
     localStorage.clear();
     setLoggedIn(false);
+    fetch("/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 
   useEffect(() => {

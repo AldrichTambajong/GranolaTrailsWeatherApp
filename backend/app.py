@@ -53,6 +53,16 @@ def login():
     return jsonify(jsonData)
 
 
+@app.route("/logout", methods=["POST"])
+def logout():
+    """
+    logs the current user out
+    clears the session storage
+    """
+    session.pop("favorites", default=None)
+    session.pop("state", default=None)
+
+
 @app.route("/signUp", methods=["POST"])
 def signUp():
     data = request.get_json()

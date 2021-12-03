@@ -43,35 +43,46 @@ function Login(props) {
   }
 
   return (
+    
     <div>
+    <h1>Granola Travels</h1>
+    <p>Planning the next outdoor adventure.</p>
       <div className='login-container'>
         <form method='POST' onSubmit={(e) => submit(e)}>
-          <h2>Login</h2>
           <div className='inputDiv'>
-            <label>Email:</label>
+            {/* <label>Email:</label> */}
             <br />
             <input
-              type='email'
+              type='text'
               name='email'
-              placeholder='email'
+              placeholder='Enter email'
               className='inputCenter'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className='inputDiv'>
-            <label>Password:</label>
+            {/* <label>Password:</label> */}
             <br />
             <input
               type='password'
               name='password'
-              placeholder='password'
+              placeholder='Enter password'
               className='inputCenter'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <input type='submit' value='Login' />
+        {/* <div class = "text-center mb-3"> */}
+          <br />
+          <br />
+          {/* <input type='submit' value='Login'/> */}
+          <div class="text-center mb-3">
+            <button type="submit" class="btn btn-success login-btn mb-3">LOGIN</button>
+            <br />
+            <p>or</p>
+        </div>
+        {/* </div> */}
         </form>
       </div>
       <div className='suggest'>
@@ -80,6 +91,7 @@ function Login(props) {
         ) : (
           <p></p>
         )}
+       
       </div>
       <script src='/static/script.js'></script>
     </div>

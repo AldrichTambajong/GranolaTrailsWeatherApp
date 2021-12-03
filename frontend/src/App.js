@@ -44,8 +44,7 @@ function App() {
                     setUserState={setUserState}
                     setUserActivities={setUserActivities}></Login>
                   <div className='signUpLink'>
-                    <p>Don't have an account?</p>
-                    <NavLink to='/signUp'>Sign Up</NavLink>
+                    <NavLink to='/signUp' style = {{ textDecoration: 'none'}}>Create Account</NavLink>
                   </div>
                 </div>
               )
@@ -57,8 +56,8 @@ function App() {
               loggedIn === "true" ? (
                 <div class='container'>
                   <Navbar name={name} email={email}></Navbar>
-                  <h1>Granola Trails</h1>
-                  <div class='row'></div>
+    
+            
                   <div class='row'>
                     <ActivityList
                       userState={userState}

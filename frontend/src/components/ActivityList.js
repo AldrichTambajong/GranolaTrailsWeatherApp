@@ -50,7 +50,7 @@ function ActivityList(props) {
                   <Card.Title>{item["name"]}</Card.Title>
                   <Card.Text>
                     <p>
-                      <b>Temp High:</b> {item["weather"]["high"]}° F
+                      <i class="fas fa-temperature-high"></i>{item["weather"]["high"]}° F
                     </p>
                     <p>
                       <b>Temp Low:</b> {item["weather"]["low"]}° F

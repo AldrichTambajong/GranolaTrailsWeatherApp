@@ -1,8 +1,3 @@
-body {
-  background: linear-gradient(to bottom, #1edf7b 0%, #016623 100%);
-  min-height: 100vh;
-}
-
 .App {
   text-align: center;
   margin: 0 0 30px 0;
@@ -11,11 +6,6 @@ body {
 .App-logo {
   height: 40vmin;
   pointer-events: none;
-}
-
-h1 {
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  font-weight: bold;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -47,20 +37,37 @@ h1 {
     transform: rotate(360deg);
   }
 }
-.login-container {
-  background: rgb(110, 42, 42);
-  display: flex;
+h1{
   text-align: center;
-  border: 2.5px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: grey; 
+  font-weight: 100;
+  font-size: 100px;
+  /* margin-top: 30%; */
+  padding-top: 90px;
+}
+p{
+  margin-top: 9%;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;   
+  font-weight: 200px;
+  font-size: 16px;  
+  color: black;
+}
+.login-container {
+  /* display: flex; */
+  text-align: center;
+  /* border: 2.5px;
   border-style: solid;
-  border-radius: 20%;
-  width: 250px;
-  height: auto;
+  border-radius: 20%; */
+  /* margin-top: %; */
+  width: 255px;
+  /* height: auto; */
   padding: 10px;
   margin-left: auto;
   margin-right: auto;
-  position: relative;
-  top: 200px;
+  /* position: relative; */
+  /* top: 200px; */
 }
 
 .login-container input[type="password"],
@@ -86,11 +93,13 @@ input[type="email"] {
 }
 
 .signUpLink {
-  color: white;
   margin-right: auto;
   margin-left: auto;
   text-align: center;
-  margin-top: 215px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif; 
+  padding-bottom: 20%;
+  /* margin-top: 215px; */
+
 }
 
 .suggest {
@@ -197,12 +206,6 @@ input[type="email"] {
   padding: 14px 16px;
   text-decoration: none;
   background-color: #b23b3b;
-}
-
-.navbar {
-  background-color: black;
-  height: auto;
-  padding: 0%;
 }
 
 .bruv {

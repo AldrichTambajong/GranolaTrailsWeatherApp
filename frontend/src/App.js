@@ -20,6 +20,7 @@ function App() {
   const [name, setName] = useState(sessionStorage.getItem("name"));
   const [email, setEmail] = useState(sessionStorage.getItem("email"));
   const [userState, setUserState] = useState("");
+  const [userActivities, setUserActivities] = useState([]);
 
   return (
     <div className='App'>
@@ -36,15 +37,30 @@ function App() {
                 <Navigate to='/home'></Navigate>
               ) : (
                 <div>
-                  <Login
-                    setName={setName}
-                    setLoggedIn={setLoggedIn}
-                    setEmail={setEmail}
-                    setUserState={setUserState}></Login>
-                  <div className='signUpLink'>
-                    <p>Don't have an account?</p>
-                    <NavLink to='/signUp'>Sign Up</NavLink>
+                  <h1 style={{fontFamily:"bold", top:"150px",position:"relative"}}>
+                    Granola Trails
+                  </h1>
+                  <div className="landing">
+                    <div style={{ float:"left", width:"350px"}}>
+                      <p>Welcome to Granola Trails! This app determines the safety of an outdoor activity based on the weather  
+                        data around its location. This app is perfect for keeping people safe before they decide on
+                        going say hiking or kayaking by informing them of how safe it is.
+                      </p>
+                      <p>Made by:<h6>Tony Ngo, Michael Anderson, Aditya Sharma, Bryan Andy and Aldrich Tambajong</h6></p>
+                      
+                    </div>
+                      <Login
+                      setName={setName}
+                      setLoggedIn={setLoggedIn}
+                      setEmail={setEmail}
+                      setUserState={setUserState}
+                      setUserActivities={setUserActivities}></Login>
                   </div>
+                  <div className='signUpLink'>
+                      <p>Don't have an account?</p>
+                      <NavLink to='/signUp'>Sign Up</NavLink>
+                    </div>
+                  
                 </div>
               )
             }></Route>
@@ -58,7 +74,10 @@ function App() {
                   <h1>Granola Trails</h1>
                   <div class='row'></div>
                   <div class='row'>
-                    <ActivityList userState={userState} />
+                    <ActivityList
+                      userState={userState}
+                      userActivities={userActivities}
+                    />
                   </div>
                 </div>
               ) : (

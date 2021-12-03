@@ -95,8 +95,6 @@ def get_users_parks():
     data = request.get_json()
     user_state = session["state"]
     favorites = session["favorites"]
-    # user_state = "TX"
-    # favorites = ["fishing"]
     parks = get_parks_and_weather(favorites, user_state)
     return jsonify(parks)
 

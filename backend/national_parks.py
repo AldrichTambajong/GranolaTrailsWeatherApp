@@ -230,7 +230,6 @@ def get_parks_and_weather(
                 short description of weather
                 https://openweathermap.org/weather-conditions
     """
-    print(activity_ids)
     if activity_ids is None:
         activity_ids = []
     else:

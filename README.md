@@ -1,5 +1,7 @@
 # Project2-CodeRangers
 
+## Link: http://3.141.36.172:3000/
+
 ## Heroku:
   1. Create a heroku account. https://signup.heroku.com/login
 

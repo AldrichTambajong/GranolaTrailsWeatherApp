@@ -1,6 +1,6 @@
 # Project2-CodeRangers
 
-## Heroku:
+## Link: http://3.141.36.172:3000/
 
 ### Getting Started
 

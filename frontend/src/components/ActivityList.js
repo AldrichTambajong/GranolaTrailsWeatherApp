@@ -10,6 +10,8 @@ import {
   ListGroupItem,
 } from "react-bootstrap";
 
+import "bootstrap-icons/font/bootstrap-icons.css";
+
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
@@ -36,7 +38,7 @@ function ActivityList(props) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(activities),
+      body: JSON.stringify(activities), 
     })
       .then((response) => response.json())
       .then((data) => {
@@ -44,6 +46,8 @@ function ActivityList(props) {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(listOfActivities);
 
   if (listOfActivities.length !== 0) {
     return (
@@ -61,24 +65,15 @@ function ActivityList(props) {
                   <Card.Title>{item["name"]}</Card.Title>
                   <Card.Text>
                     <p>
-                      <b>Temp High:</b> {item["weather"]["high"]}° F
-                    </p>
+                      <i class="bi bi-thermometer-high"></i>{item["weather"]["high"]}° F &nbsp;&nbsp; <i class="bi bi-thermometer-low"></i>{item["weather"]["low"]}° F  
+                    </p> 
                     <p>
-                      <b>Temp Low:</b> {item["weather"]["low"]}° F
+                      <i class="bi bi-droplet"></i>{item["weather"]["precipitation"]}% &nbsp;&nbsp;&nbsp;&nbsp;  <i class="bi bi-cloud"></i>{item["weather"]["clouds"]}%
                     </p>
-                    <p>
-                      <b>Precipitation:</b> {item["weather"]["precipitation"]}%
-                    </p>
-                    <p>
-                      <b>Cloud Coverage:</b> {item["weather"]["clouds"]}%
-                    </p>
-                    <p>
-                      <b>Condition:</b> {item["weather"]["condition"]}
-                    </p>
-                    {item["description"]}
                   </Card.Text>
                   <Button
-                    variant='primary'
+                    size="sm"
+                    variant='success'
                     onClick={() => {
                       window.open(item["url"], "_blank");
                       return null;
@@ -93,11 +88,18 @@ function ActivityList(props) {
                   {Object.entries(item["activities"]).map(
                     (activity_weather, index) => {
                       return (
-                        <ListGroupItem>
-                          {capitalize(activity_weather[0])}:{" "}
-                          {activity_weather[1]
-                            ? "Good to go " + EMOJI[activity_weather[0]] + "!"
-                            : "Do not go today."}
+                        <ListGroupItem className='d-flex justify-content-between align-items-start'>
+                          {EMOJI[activity_weather[0]]} {capitalize(activity_weather[0])} {" "}
+                          {activity_weather[1] && (
+                            <>
+                            <i class="bi bi-flag-fill" style = {{color:'green'}}></i>
+                            </>
+                          )}
+                          {!activity_weather[1] && (
+                            <>
+                              <i class="bi bi-flag-fill" style = {{color:'red'}}></i>
+                            </>
+                          )}
                         </ListGroupItem>
                       );
                     }

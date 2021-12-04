@@ -54,22 +54,15 @@ function App() {
                 <Navigate to='/home'></Navigate>
               ) : (
                 <div>
-                  <h1 style={{fontFamily:"bold", top:"150px",position:"relative"}}>
-                    Granola Trails
-                  </h1>
-                  <div className="landing">
-                      <Login
-                      setName={setName}
-                      setLoggedIn={setLoggedIn}
-                      setEmail={setEmail}
-                      setUserState={setUserState}
-                      setUserActivities={setUserActivities}></Login>
-                  </div>
+                  <Login
+                    setName={setName}
+                    setLoggedIn={setLoggedIn}
+                    setEmail={setEmail}
+                    setUserState={setUserState}
+                    setUserActivities={setUserActivities}></Login>
                   <div className='signUpLink'>
-                      <p>Don't have an account?</p>
-                      <NavLink to='/signUp'>Sign Up</NavLink>
-                    </div>
-                  
+                    <NavLink to='/signUp' style = {{ textDecoration: 'none'}}>Create Account</NavLink>
+                  </div>
                 </div>
               )
             }></Route>
@@ -80,8 +73,8 @@ function App() {
               loggedIn === "true" ? (
                 <div class='container'>
                   <Navbar name={name} email={email}></Navbar>
-                  <h1>Granola Trails</h1>
-                  <div class='row'></div>
+    
+            
                   <div class='row'>
                     <ActivityList
                       userState={userState}
@@ -102,10 +95,6 @@ function App() {
               ) : (
                 <div>
                   <Signup setSignedUp={setSignedUp}></Signup>
-                  <div className='loginLink'>
-                    <p>Already have an account?</p>
-                    <NavLink to='/login'>Login</NavLink>
-                  </div>
                 </div>
               )
             }></Route>

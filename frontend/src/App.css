@@ -53,6 +53,13 @@ p{
   font-size: 16px;  
   color: black;
 }
+.landing{
+  background-color: rgb(143, 63, 63);
+  display:inline-flex;
+  top:200px;
+  position: relative;
+
+}
 .login-container {
   text-align: center;
   width: 255px;

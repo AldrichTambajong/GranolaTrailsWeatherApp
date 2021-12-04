@@ -3,7 +3,7 @@
 """
 
 import os
-from flask import Flask, request
+from flask import Flask, request, session
 from flask.json import jsonify
 from dotenv import load_dotenv, find_dotenv
 
@@ -27,11 +27,13 @@ if db_url.startswith("postgres://"):
     db_url = db_url.replace("postgres://", "postgresql://", 1)
 app.config["SQLALCHEMY_DATABASE_URI"] = db_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "SET_A_SECRET_KEY")
 
 
 @app.route("/login", methods=["POST"])
 def login():
-
+    session.pop("favorites", default=None)
+    session.pop("state", default=None)
     data = request.get_json()
     user = User.query.filter_by(email=data.get("email")).first()
 
@@ -46,42 +48,55 @@ def login():
                 "login": "valid",
                 "status": 200,
             }
+            session["favorites"] = user.get_favorites()
+            session["state"] = user.get_state()
     return jsonify(jsonData)
+
+
+@app.route("/logout", methods=["POST"])
+def logout():
+    """
+    logs the current user out
+    clears the session storage
+    """
+    session.pop("favorites", default=None)
+    session.pop("state", default=None)
+    json_data = {"status": 200}
+    return jsonify(json_data)
 
 
 @app.route("/signUp", methods=["POST"])
 def signUp():
-    if request.method == "POST":
-        data = request.get_json()
-        email = data.get("email")
-        password = data.get("password")
-        user_state = data.get("user_state")
-        hiking = data.get("hiking")
-        fishing = data.get("fishing")
-        offroad = data.get("offroad")
-        camping = data.get("camping")
-        bouldering = data.get("bouldering")
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
+    user_state = data.get("user_state")
+    hiking = data.get("hiking")
+    fishing = data.get("fishing")
+    offroad = data.get("offroad")
+    camping = data.get("camping")
+    bouldering = data.get("bouldering")
 
-        if User.query.filter_by(email=email).first():
-            errorObj = {"message": "Email already exists!", "status": 300}
-            return jsonify(errorObj)
+    if User.query.filter_by(email=email).first():
+        errorObj = {"message": "Email already exists!", "status": 300}
+        return jsonify(errorObj)
 
-        password = sha256_crypt.encrypt(password)
+    password = sha256_crypt.encrypt(password)
 
-        new_account = User(
-            email=email,
-            password=password,
-            user_state=user_state,
-            hiking=hiking,
-            fishing=fishing,
-            offroad=offroad,
-            camping=camping,
-            bouldering=bouldering,
-        )
-        db.session.add(new_account)
-        db.session.commit()
-        successObj = {"message": "New user registered", "status": 200}
-        return jsonify(successObj)
+    new_account = User(
+        email=email,
+        password=password,
+        user_state=user_state,
+        hiking=hiking,
+        fishing=fishing,
+        offroad=offroad,
+        camping=camping,
+        bouldering=bouldering,
+    )
+    db.session.add(new_account)
+    db.session.commit()
+    successObj = {"message": "New user registered", "status": 200}
+    return jsonify(successObj)
 
 
 @app.route("/parks", methods=["POST"])
@@ -89,15 +104,9 @@ def get_users_parks():
     """
     returns a sample of parks in ther user's state that feature the activities they like
     """
-    data = request.get_json()
-    data.get("activities")
-    user_state = data.get("user_state")
-    # hardcoded favorites for now
-    favorites = [
-        "fishing",
-        "hiking",
-        "camping",
-    ]
+    # data = request.get_json()
+    user_state = session["state"]
+    favorites = session["favorites"]
     parks = get_parks_and_weather(favorites, user_state)
     return jsonify(parks)
 

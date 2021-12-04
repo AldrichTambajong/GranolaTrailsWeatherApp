@@ -28,8 +28,25 @@ function App() {
         <Routes>
           {/* "element" prop needs to be declared in route tags that 
             need multiple components */}
-          <Route path='' element={<Navigate to='/login'></Navigate>} />
+          <Route path='' element={<Navigate to='/landing'></Navigate>} />
+          <Route path='/landing'
+        element = {
+          <div className="landing">
+            <div style={{ float:"left", width:"350px"}}>
+              <p><h4>Welcome to Granola Trails! </h4>
+                <h5>The app to find the safest site for your favorite outdoor activity based on the weather  
+                data around its location. With this app, find where you can go either hiking or kayaking 
+                And If you can go.</h5>
+              </p>
+              <p>By:<h6>Tony Ngo, Michael Anderson, Aditya Sharma, Bryan Andy and Aldrich Tambajong</h6></p>
+              <p>Explore and Enjoy !</p>
+            </div>
+            <div className="signUpLink">
+                  <NavLink to='/login'>Login here. Start exploring!</NavLink>
+             </div>
+            </div>
 
+        }></Route>
           <Route
             path='/login'
             element={

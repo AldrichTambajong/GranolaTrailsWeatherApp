@@ -1,6 +1,7 @@
 # Project2-CodeRangers
 
 ## Heroku:
+  1. Create a heroku account. https://signup.heroku.com/login
 
 ### Getting Started
 

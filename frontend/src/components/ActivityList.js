@@ -47,6 +47,8 @@ function ActivityList(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(listOfActivities);
+
   if (listOfActivities.length !== 0) {
     return (
       <Container>
@@ -63,14 +65,14 @@ function ActivityList(props) {
                   <Card.Title>{item["name"]}</Card.Title>
                   <Card.Text>
                     <p>
-                    <i class="bi bi-thermometer-high"></i>{item["weather"]["high"]}° F &nbsp;&nbsp; <i class="bi bi-thermometer-low"></i>{item["weather"]["low"]}° F  
+                      <i class="bi bi-thermometer-high"></i>{item["weather"]["high"]}° F &nbsp;&nbsp; <i class="bi bi-thermometer-low"></i>{item["weather"]["low"]}° F  
                     </p> 
                     <p>
-                    <i class="bi bi-droplet"></i>{item["weather"]["precipitation"]}% &nbsp;&nbsp;&nbsp;&nbsp;  <i class="bi bi-cloud"></i>{item["weather"]["clouds"]}%
-                    </p>            
-                    {/* {item["description"]} */}
+                      <i class="bi bi-droplet"></i>{item["weather"]["precipitation"]}% &nbsp;&nbsp;&nbsp;&nbsp;  <i class="bi bi-cloud"></i>{item["weather"]["clouds"]}%
+                    </p>
                   </Card.Text>
                   <Button
+                    size="sm"
                     variant='success'
                     onClick={() => {
                       window.open(item["url"], "_blank");
@@ -83,45 +85,21 @@ function ActivityList(props) {
                   <ListGroupItem>
                     <b>Activity Status</b>
                   </ListGroupItem>
-                  {/* <ListGroupItem>
-                    Bouldering{" "}
-                    {item["activities"]["bouldering"]
-                      ? <i class="bi bi-flag-fill" style = {{color:'green'}}></i>
-                      : <i class="bi bi-flag-fill" style = {{color: 'red'}}></i>
-                      }
-                  </ListGroupItem>
-                  <ListGroupItem>
-                    Camping:{" "}
-                    {item["activities"]["camping"]
-                      ? <i class="bi bi-flag-fill" style = {{color:'green'}}></i>
-                      : <i class="bi bi-flag-fill" style = {{color:'red'}}></i>}
-                  </ListGroupItem>
-                  <ListGroupItem>
-                    Fishing:{" "}
-                    {item["activities"]["fishing"]
-                      ? <i class="bi bi-flag-fill" style = {{color:'green'}}></i>
-                      : <i class="bi bi-flag-fill" style = {{color:'red'}}></i>}
-                  </ListGroupItem>
-                  <ListGroupItem>
-                    Hiking:{" "}
-                    {item["activities"]["hiking"]
-                      ? <i class="bi bi-flag-fill" style = {{color:'green'}}></i>
-                      : <i class="bi bi-flag-fill" style = {{color:'red'}}></i>}
-                  </ListGroupItem>
-                  <ListGroupItem>
-                    Off-Roading:{" "}
-                    {item["activities"]["offroading"]
-                      ? <i class="bi bi-flag-fill" style = {{color:'green'}}></i>
-                      : <i class="bi bi-flag-fill" style = {{color:'red'}}></i>}
-                  </ListGroupItem> */}
                   {Object.entries(item["activities"]).map(
                     (activity_weather, index) => {
                       return (
-                        <ListGroupItem>
-                          {capitalize(activity_weather[0])}:{" "}
-                          {activity_weather[1]
-                            ? "Good to go " + EMOJI[activity_weather[0]] + "!"
-                            : "Do not go today."}
+                        <ListGroupItem className='d-flex justify-content-between align-items-start'>
+                          {EMOJI[activity_weather[0]]} {capitalize(activity_weather[0])} {" "}
+                          {activity_weather[1] && (
+                            <>
+                            <i class="bi bi-flag-fill" style = {{color:'green'}}></i>
+                            </>
+                          )}
+                          {!activity_weather[1] && (
+                            <>
+                              <i class="bi bi-flag-fill" style = {{color:'red'}}></i>
+                            </>
+                          )}
                         </ListGroupItem>
                       );
                     }

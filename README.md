@@ -24,9 +24,9 @@
 - react: Javascript framework utilized for our applications
   1. Run `$ npm i react`
 - psycopg2: Python library to connect databse
-  1. Run [sudo] apt-get update
-  2. Then, as prerequisite for psycopg2, run [sudo] apt-get install -y libpq-dev
-  3. Finally, [sudo] pip install psycopg2.
+  1. Run `[sudo] apt-get update`
+  2. Then, as prerequisite for psycopg2, run `[sudo] apt-get install -y libpq-dev`
+  3. Finally, run `[sudo] pip install psycopg2`.
   Documentation and help: https://www.psycopg.org/docs/install.html , https://www.postgresql.org/docs/9.1/libpq-build.html
 
 #### Installation
@@ -43,5 +43,9 @@
   1. `$ git clone git@github.com:AldrichTambajong/Project2-CodeRangers.git`
 - Store `OPEN_WEATHER_KEY`, `NATIONAL_PARKS_KEY`, & `DATABASE_URL` in .env file 
 - Open two terminals, one in `backend` folder and one in `frontend` folder
+  0. Optional: As a precaution, run:
+    * `npm run build`
+    * `npm install`
+    before:
   1. Run `python3 app.py` in backend folder
   2. Run `npm run start` in frontend folder

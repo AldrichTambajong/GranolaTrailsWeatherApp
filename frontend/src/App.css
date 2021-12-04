@@ -43,7 +43,6 @@ h1{
   color: grey; 
   font-weight: 100;
   font-size: 112px;
-  /* margin-top: 30%; */
   padding-top: 90px;
 }
 p{
@@ -55,19 +54,11 @@ p{
   color: black;
 }
 .login-container {
-  /* display: flex; */
   text-align: center;
-  /* border: 2.5px;
-  border-style: solid;
-  border-radius: 20%; */
-  /* margin-top: %; */
   width: 255px;
-  /* height: auto; */
   padding: 10px;
   margin-left: auto;
   margin-right: auto;
-  /* position: relative; */
-  /* top: 200px; */
 }
 
 .login-container input[type="password"],
@@ -98,7 +89,6 @@ input[type="email"] {
   text-align: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif; 
   padding-bottom: 20%;
-  /* margin-top: 215px; */
 
 }
 

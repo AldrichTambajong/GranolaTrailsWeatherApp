@@ -66,7 +66,6 @@ function Signup(props) {
                     </div>
                     <br />
                     <br />
-                    {/* <Form.Group class="form-select" aria-label="Default select example"> */}
                         <Form.Control
                             class="form-select" 
                             aria-label="Default select example"
@@ -126,7 +125,6 @@ function Signup(props) {
                             <option value="WI">Wisconinsin</option>
                             <option value="WY">Wyoming</option>
                         </Form.Control>
-                    {/* </Form.Group> */}
                     <br />
                     <br />
                     <p>Choose your favorite Activities:</p>
@@ -172,7 +170,6 @@ function Signup(props) {
                     </Form.Group>
                     <br />
                     <br />
-                    {/* <input type="submit" value="Sign Up" style={{ marginLeft: "auto", marginRight: "auto" }}></input> */}
                     <div class="text-center mb-3">
                         <button type="submit" class="btn btn-success login-btn mb-3">Sign Up</button>
                     </div>
